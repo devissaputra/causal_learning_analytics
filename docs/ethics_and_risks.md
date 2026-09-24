@@ -2,32 +2,72 @@
 
 ## Intended use
 
-Causal Learning Analytics is meant for research, prototyping, and educational design work. It should help people inspect a learning-related signal or decision, not make consequential decisions on their behalf.
+Causal Learning Analytics is a research scaffold for studying whether an educational intervention may have changed an outcome under explicitly stated assumptions.
 
-## Human oversight
+It should not be used to turn observational correlations into authoritative causal claims.
 
-A person should be able to see what evidence produced an output, question it, and override it. If the system cannot explain a recommendation well enough for meaningful review, the recommendation should not be used in a high-stakes setting.
+## Main risk: causal overclaiming
+
+Inverse-probability weighting can produce a precise-looking number even when the identifying assumptions are not credible.
+
+Measured covariate balance, propensity overlap, stable weights, and a narrow confidence interval do not establish that all important confounders were measured.
+
+Every empirical report should distinguish:
+
+- what the software calculated
+- what assumptions are required for a causal interpretation
+- which assumptions were empirically diagnosed
+- which assumptions remain fundamentally unverified
+
+## Adjustment-set risk
+
+Including post-treatment variables can induce bias.
+
+Do not add a variable to the propensity model simply because it predicts treatment or outcome well.
+
+The adjustment set should be justified from the temporal and causal structure of the study.
+
+## Intervention decisions
+
+Do not use a single observational estimate to automatically decide who should receive educational support, who should be denied support, which teacher should be sanctioned, or which program should be removed.
+
+Consequential decisions should consider design quality, uncertainty, replication, distributional effects, implementation constraints, and the possibility of unmeasured confounding.
+
+## Fairness and heterogeneity
+
+An average treatment effect can hide different effects across learner groups and contexts.
+
+The current repository does not estimate heterogeneous treatment effects and should not be interpreted as showing that an intervention works equally well for everyone.
+
+Subgroup analysis also creates privacy and multiplicity risks and requires adequate sample size and pre-specified reasoning.
 
 ## Privacy
 
-Collect only the data the study actually needs. Remove direct identifiers, document retention periods, restrict access to raw traces, and avoid storing free text, audio, video, or other sensitive material unless it is essential to the research question.
+Causal analyses can encourage collection of extensive background variables in the name of confounding control.
 
-## Fairness
+Collect only information that is defensible for the study question. Protect educational records, demographic information, disability data, behavioral traces, and other sensitive fields.
 
-Overall accuracy can hide uneven errors. When it is lawful and ethically appropriate, inspect false alarms, missed support, calibration, and recommendation quality across relevant groups and contexts. Do not treat a single fairness metric as proof that a system is fair.
+Do not expand surveillance simply to improve a propensity model.
 
-## Educational risk
+## Positivity and exclusion
 
-A technically correct output can still lead to a poor learning experience. Watch for labels that become self-fulfilling, excessive nudging, over-support that removes productive struggle, or analytics that reward surveillance rather than learning.
+Trimming or clipping difficult observations can change the population represented by the estimate.
+
+Any exclusion, trimming, or clipping choice should be reported transparently with counts and rationale.
+
+Do not remove observations merely because they make the result less favorable.
 
 ## Uses excluded from this prototype
 
-- autonomous grading, admissions, or disciplinary decisions
-- employment decisions
-- psychological or medical diagnosis
-- covert monitoring or surveillance
-- any deployment where affected people cannot understand or challenge the output
+Do not use this repository alone for:
 
-## Before a real-user study or deployment
+- high-stakes learner placement or exclusion
+- admissions, grading, discipline, or employment decisions
+- teacher or employee punishment
+- covert experimentation
+- claims that an observational intervention is proven effective
+- automated subgroup targeting without ethical and methodological review
 
-Document consent or another lawful basis, data governance, access controls, subgroup evaluation, calibration where probabilities are used, human escalation paths, and clear rollback criteria.
+## Before real use
+
+Document the causal question, target population, treatment, outcome timing, estimand, adjustment set, propensity-model provenance, missing-data plan, overlap, weight diagnostics, balance, uncertainty, sensitivity analysis, privacy protections, and who is responsible for reviewing causal claims before they influence practice.
