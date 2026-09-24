@@ -5,6 +5,6 @@ type: software
 authors:
   - family-names: "Saputra"
     given-names: "Devis Wawan"
-repository-code: "https://github.com/devissaputra/causal-learning-analytics"
+repository-code: "https://github.com/devissaputra/causal_learning_analytics"
 license: MIT
 version: 0.1.0
