@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "causal-learning-analytics"
+version = "0.1.0"
+description = "Compact causal analysis baseline for inverse probability weighting, overlap checks, and covariate balance diagnostics."
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Devis Wawan Saputra"}]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
