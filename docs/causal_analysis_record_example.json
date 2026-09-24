@@ -1,0 +1,17 @@
+{
+  "estimand": "ATE",
+  "treatment": "received adaptive feedback intervention",
+  "outcome": "normalized post-test score",
+  "covariates": [
+    "baseline_score",
+    "prior_engagement"
+  ],
+  "propensity_source": "synthetic externally supplied pre-treatment scores",
+  "assumptions": [
+    "consistency",
+    "conditional exchangeability given measured pre-treatment covariates",
+    "positivity",
+    "no interference",
+    "correct treatment and outcome measurement"
+  ]
+}
