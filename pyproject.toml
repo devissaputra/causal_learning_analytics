@@ -5,10 +5,24 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "causal-learning-analytics"
 version = "0.1.0"
-description = "Compact causal analysis baseline for inverse probability weighting, overlap checks, and covariate balance diagnostics."
+description = "Transparent ATE inverse-probability-weighting scaffold with propensity modeling, overlap, balance, weight, uncertainty, and sensitivity diagnostics."
 requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [{name = "Devis Wawan Saputra"}]
+readme = "README.md"
+keywords = [
+  "ai-in-education",
+  "aied",
+  "causal-inference",
+  "learning-analytics",
+  "propensity-score",
+  "inverse-probability-weighting",
+  "covariate-balance",
+  "education-research",
+]
+
+[project.urls]
+Repository = "https://github.com/devissaputra/causal_learning_analytics"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
