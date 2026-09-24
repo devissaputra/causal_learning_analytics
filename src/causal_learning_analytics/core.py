@@ -185,6 +185,219 @@ def ipw_ate(
     )
 
 
+
+def _solve_linear_system(matrix: list[list[float]], vector: list[float]) -> list[float]:
+    """Solve a small dense linear system with partial-pivot Gaussian elimination."""
+    size = len(vector)
+    augmented = [
+        [float(value) for value in row] + [float(vector[index])]
+        for index, row in enumerate(matrix)
+    ]
+
+    for column in range(size):
+        pivot = max(
+            range(column, size),
+            key=lambda row: abs(augmented[row][column]),
+        )
+        if abs(augmented[pivot][column]) < 1e-12:
+            raise ValueError("propensity model system is singular")
+        augmented[column], augmented[pivot] = (
+            augmented[pivot],
+            augmented[column],
+        )
+
+        pivot_value = augmented[column][column]
+        augmented[column] = [
+            value / pivot_value
+            for value in augmented[column]
+        ]
+
+        for row in range(size):
+            if row == column:
+                continue
+            factor = augmented[row][column]
+            if factor == 0:
+                continue
+            augmented[row] = [
+                current - factor * pivot_current
+                for current, pivot_current in zip(
+                    augmented[row],
+                    augmented[column],
+                )
+            ]
+
+    return [augmented[row][-1] for row in range(size)]
+
+
+def _sigmoid(value: float) -> float:
+    if value >= 0:
+        return 1.0 / (1.0 + math.exp(-value))
+    exp_value = math.exp(value)
+    return exp_value / (1.0 + exp_value)
+
+
+def fit_propensity_logistic(
+    treatment: Sequence[int],
+    covariates: Mapping[str, Sequence[Real]],
+    *,
+    l2: float = 1e-6,
+    max_iterations: int = 100,
+    tolerance: float = 1e-8,
+) -> dict:
+    """Fit a transparent logistic propensity baseline on pre-treatment covariates.
+
+    Continuous covariates are standardized internally. This small dependency-free
+    implementation is intended for reproducible demonstrations and benchmarking,
+    not as a substitute for a mature statistical package in production research.
+    """
+    treatment = _validate_treatment(treatment)
+    if not isinstance(covariates, Mapping) or not covariates:
+        raise ValueError("covariates must be a non-empty mapping")
+    if isinstance(l2, bool) or not isinstance(l2, Real) or l2 < 0:
+        raise ValueError("l2 must be a non-negative number")
+    if (
+        isinstance(max_iterations, bool)
+        or not isinstance(max_iterations, int)
+        or max_iterations <= 0
+    ):
+        raise ValueError("max_iterations must be a positive integer")
+    if (
+        isinstance(tolerance, bool)
+        or not isinstance(tolerance, Real)
+        or tolerance <= 0
+    ):
+        raise ValueError("tolerance must be positive")
+
+    names = []
+    columns = []
+    means = {}
+    scales = {}
+
+    for name, raw_values in covariates.items():
+        if not isinstance(name, str) or not name.strip():
+            raise ValueError("covariate names must be non-empty strings")
+        values = _as_finite_numbers(raw_values, name)
+        if len(values) != len(treatment):
+            raise ValueError(
+                f"covariate {name} must match treatment length"
+            )
+        column_mean = sum(values) / len(values)
+        variance = sum(
+            (value - column_mean) ** 2
+            for value in values
+        ) / len(values)
+        scale = math.sqrt(variance)
+        if math.isclose(scale, 0.0, abs_tol=1e-12):
+            raise ValueError(
+                f"covariate {name} has zero variance and cannot identify a logistic slope"
+            )
+        names.append(name)
+        means[name] = column_mean
+        scales[name] = scale
+        columns.append(
+            [
+                (value - column_mean) / scale
+                for value in values
+            ]
+        )
+
+    design = []
+    for row_index in range(len(treatment)):
+        design.append(
+            [1.0]
+            + [
+                column[row_index]
+                for column in columns
+            ]
+        )
+
+    coefficient_count = len(names) + 1
+    coefficients = [0.0] * coefficient_count
+    converged = False
+    completed_iterations = 0
+
+    for iteration in range(1, max_iterations + 1):
+        linear_predictor = [
+            sum(
+                coefficient * feature
+                for coefficient, feature in zip(
+                    coefficients,
+                    row,
+                )
+            )
+            for row in design
+        ]
+        probabilities = [
+            min(1.0 - 1e-12, max(1e-12, _sigmoid(value)))
+            for value in linear_predictor
+        ]
+
+        gradient = [0.0] * coefficient_count
+        information = [
+            [0.0] * coefficient_count
+            for _ in range(coefficient_count)
+        ]
+
+        for row, flag, probability in zip(
+            design,
+            treatment,
+            probabilities,
+        ):
+            residual = flag - probability
+            variance_weight = probability * (1.0 - probability)
+
+            for j in range(coefficient_count):
+                gradient[j] += row[j] * residual
+                for k in range(coefficient_count):
+                    information[j][k] += (
+                        variance_weight * row[j] * row[k]
+                    )
+
+        for index in range(1, coefficient_count):
+            gradient[index] -= float(l2) * coefficients[index]
+            information[index][index] += float(l2)
+
+        step = _solve_linear_system(information, gradient)
+        coefficients = [
+            coefficient + delta
+            for coefficient, delta in zip(coefficients, step)
+        ]
+        completed_iterations = iteration
+
+        if max(abs(delta) for delta in step) < float(tolerance):
+            converged = True
+            break
+
+    final_scores = []
+    for row in design:
+        linear_value = sum(
+            coefficient * feature
+            for coefficient, feature in zip(
+                coefficients,
+                row,
+            )
+        )
+        final_scores.append(
+            min(1.0 - 1e-12, max(1e-12, _sigmoid(linear_value)))
+        )
+
+    return {
+        "scores": final_scores,
+        "converged": converged,
+        "iterations": completed_iterations,
+        "intercept": coefficients[0],
+        "standardized_coefficients": {
+            name: coefficient
+            for name, coefficient in zip(
+                names,
+                coefficients[1:],
+            )
+        },
+        "covariate_means": means,
+        "covariate_scales": scales,
+        "l2": float(l2),
+    }
+
 def common_support(
     treatment: Sequence[int],
     propensity: Sequence[Real],
