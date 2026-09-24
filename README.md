@@ -1,77 +1,306 @@
 # Causal Learning Analytics
 
-> Compact causal analysis baseline for inverse probability weighting, overlap checks, and covariate balance diagnostics.
+> Transparent causal-analysis scaffold for propensity modeling, ATE weighting, common support, covariate balance, uncertainty, and sensitivity review.
 
-[![CI](https://github.com/devissaputra/causal-learning-analytics/actions/workflows/ci.yml/badge.svg)](https://github.com/devissaputra/causal-learning-analytics/actions/workflows/ci.yml)
+[![CI](https://github.com/devissaputra/causal_learning_analytics/actions/workflows/ci.yml/badge.svg)](https://github.com/devissaputra/causal_learning_analytics/actions/workflows/ci.yml)
 
 ![Causal Learning Analytics workflow](assets/architecture.svg)
 
-**Area:** Learning Analytics & Multimodal Evidence    
+**Area:** AI in Education (AIEd) · Causal Learning Analytics  
 **Status:** working research prototype  
 **Author:** Devis Wawan Saputra
 
 ## What this project is for
 
-Prediction can tell us who is at risk; it cannot by itself tell us whether an intervention caused an improvement. This project provides a small, inspectable causal-analysis workflow built around propensity scores, weighting, overlap checks, and explicit assumptions.
+Prediction can tell us which learners are likely to struggle. It does not by itself tell us whether an intervention caused an outcome.
 
-**Who may find it useful:** Learning-analytics researchers who need to separate causal questions from ordinary prediction tasks.
+This repository provides a compact, inspectable baseline for a binary-treatment observational causal question. It separates:
+
+- the causal estimand
+- the propensity model
+- empirical overlap
+- inverse-probability weights
+- measured covariate balance
+- raw and adjusted outcome contrasts
+- uncertainty
+- sensitivity to clipping
+- assumptions that the code cannot verify
+
+The software can calculate an adjusted contrast. It cannot turn a weak study design into a credible causal claim.
 
 ## Research questions
 
-1. Which observed learning behaviors are associated with outcomes after adjustment?
-2. How sensitive are estimates to propensity overlap and confounding assumptions?
-3. Can intervention decisions be separated from purely predictive correlations?
+1. What average treatment effect is being targeted?
+2. How different is the unadjusted contrast from the IPW-adjusted estimate?
+3. Do treated and control observations share enough empirical propensity support?
+4. Does weighting improve measured pre-treatment covariate balance?
+5. Are the weights stable enough to support the intended estimand?
+6. How sensitive is the result to clipping and propensity-model choices?
 
-## How it works
-
-The baseline assumes treatment assignment, outcomes, and propensity scores are already available. It then estimates an average treatment effect with inverse probability weights and provides two diagnostics: propensity overlap and standardized mean difference. It does not fit a propensity model or infer a causal graph.
+## End-to-end workflow
 
 ![Causal Learning Analytics data and reasoning flow](assets/data_flow.svg)
 
-The diagram now follows what the code actually does: observed treatment and outcome data are combined with propensity scores, weighted, and checked for overlap and balance before an effect estimate is interpreted.
+The implemented path is:
+
+1. define the ATE causal analysis record
+2. validate binary treatment, outcomes, and pre-treatment covariates
+3. estimate propensity scores with the included logistic baseline or supply scores from another model
+4. inspect treated/control empirical common support
+5. construct ATE inverse-probability weights
+6. inspect weight magnitude and effective sample size
+7. compare measured covariate balance before and after weighting
+8. report the raw outcome contrast
+9. estimate Horvitz-Thompson and normalized Hájek ATEs
+10. report fixed-propensity bootstrap uncertainty
+11. compare clipping specifications
+12. surface review flags before causal interpretation
+
+## Causal analysis record
+
+`causal_analysis_record()` makes the study declaration explicit:
+
+- estimand
+- treatment
+- outcome
+- pre-treatment covariates
+- propensity-score source
+- identifying assumptions
+
+See `docs/causal_analysis_record_example.json`.
+
+The current implementation supports **ATE only**.
+
+## Propensity modeling
+
+`fit_propensity_logistic()` provides a small dependency-free logistic baseline for named continuous pre-treatment covariates.
+
+It:
+
+- standardizes covariates
+- fits an intercept and slopes
+- supports optional L2 regularization
+- reports convergence and iteration count
+- returns standardized coefficients
+- returns the means/scales used in standardization
+- returns treatment-probability estimates
+
+This is deliberately transparent and useful for reproducible demonstrations. It is not presented as a replacement for mature statistical software in complex empirical work.
+
+Externally estimated propensity scores can also be supplied directly.
+
+## Positivity and clipping
+
+Ordinary ATE IPW requires nonzero probability of each treatment level in the relevant covariate strata.
+
+The baseline does **not** silently repair propensity scores at exactly 0 or 1.
+
+Without an explicit clipping choice, endpoint scores raise an error.
+
+When clipping is requested, the output records:
+
+- clipping threshold
+- number of changed scores
+- original score range
+- score range actually used
+
+The analysis adds review flags when positivity problems or clipping are present.
+
+## Empirical common support
+
+`common_support()` compares the observed propensity ranges in the treated and control groups.
+
+It reports:
+
+- treated propensity range
+- control propensity range
+- their intersection
+- treated fraction inside the intersection
+- control fraction inside the intersection
+- overall fraction inside the intersection
+
+This replaces the earlier fixed 0.1–0.9 score count, which did not actually compare the two treatment groups.
+
+Common support remains a diagnostic, not proof that positivity holds everywhere.
+
+## Weight diagnostics
+
+ATE weights are generated with:
+
+`ipw_weights()`
+
+The repository reports:
+
+- minimum weight
+- maximum weight
+- mean weight
+- overall Kish effective sample size
+- treated effective sample size
+- control effective sample size
+
+A highly unstable weighted sample is surfaced for review rather than hidden behind the effect estimate.
+
+## Covariate balance
+
+`covariate_balance()` reports treated/control means and standardized mean differences for named pre-treatment covariates.
+
+The same diagnostics can be calculated before and after weighting.
+
+If a standardized difference cannot be estimated because the relevant within-group scale is zero or a group is too small, the function returns `None`.
+
+It does **not** return zero and falsely imply perfect balance.
+
+The default integrated review threshold is absolute SMD > 0.10. That is a practical diagnostic threshold, not proof that all confounding has been eliminated.
+
+## Raw and adjusted effects
+
+The integrated analysis reports three different quantities:
+
+- raw treated-minus-control mean difference
+- Horvitz-Thompson IPW ATE
+- normalized Hájek IPW ATE
+
+Keeping them separate makes it visible how much the weighting changes the observed contrast.
+
+## Uncertainty
+
+`bootstrap_ipw_ci()` returns a seeded percentile-bootstrap confidence interval for the Hájek estimate.
+
+Important limitation: the current bootstrap treats the supplied propensity scores as fixed.
+
+It therefore does not capture the full uncertainty from estimating the propensity model.
+
+## Clipping sensitivity
+
+`clipping_sensitivity()` compares:
+
+- Horvitz-Thompson ATE
+- Hájek ATE
+- number of clipped scores
+- maximum weight
+- effective sample size
+
+across several clipping thresholds.
+
+This tests one design choice. It is **not** a formal sensitivity analysis for an unmeasured confounder.
+
+## Integrated analysis
+
+`analyze_ipw()` combines the current baseline into one result:
+
+- estimand
+- sample size and group counts
+- raw outcome contrast
+- HT ATE
+- Hájek ATE
+- bootstrap CI
+- original and used propensity ranges
+- clipping diagnostics
+- group-aware common support
+- weight diagnostics and ESS
+- covariate balance before weighting
+- covariate balance after weighting
+- clipping sensitivity
+- causal review flags
+
+Current review flags can include:
+
+- `causal_assumptions_unverified`
+- `small_group`
+- `positivity_violation`
+- `propensity_clipping_used`
+- `poor_common_support`
+- `extreme_weights`
+- `low_effective_sample_size`
+- `post_weight_balance_not_estimable`
+- `post_weight_balance_problem`
+
+The first flag is always present because observed-data arithmetic cannot verify the complete causal identification argument.
+
+## Synthetic demo
 
 ![Synthetic demo snapshot for Causal Learning Analytics](assets/demo_snapshot.svg)
 
-This snapshot shows the bundled synthetic example for Causal Learning Analytics. It checks the software path; it is not an empirical performance result.
+The bundled example uses 12 synthetic observational records and two pre-treatment covariates.
 
-## Methods in the current baseline
+For the supplied scores, the software demonstrates:
 
-- inverse probability weighting
-- average treatment effect estimation
-- propensity overlap checks
-- standardized mean differences
-- weight clipping
+- raw mean difference around 0.245
+- Horvitz-Thompson ATE around 0.227
+- Hájek ATE around 0.237
+- 95% fixed-propensity bootstrap interval around 0.196 to 0.284
+- empirical common-support fraction around 0.833
+- effective sample size around 11.84 of 12
+- maximum weight around 2.38
+- one covariate whose weighted SMD remains above the review threshold
+
+The remaining imbalance is deliberately left visible rather than presenting the synthetic example as a clean causal success.
+
+These values are software demonstrations, not evidence that an educational intervention works.
 
 ## Data
 
-Synthetic observational intervention data are included for reproducible demonstrations.
+`data/sample.csv` contains the same 12 synthetic records used to document the schema.
 
-`data/README.md` documents the sample schema and the conditions that should be recorded before any real dataset is connected. Restricted or identifiable learner data should stay outside the repository.
+`data/README.md` explains temporal ordering, propensity-score provenance, positivity, common support, balance, missing-data boundaries, and governance expectations.
 
 ## Run the demo
 
 ```bash
-git clone https://github.com/devissaputra/causal-learning-analytics.git
-cd causal-learning-analytics
+git clone https://github.com/devissaputra/causal_learning_analytics.git
+cd causal_learning_analytics
 python scripts/run_demo.py
 python -m unittest discover -s tests -v
 ```
 
-The synthetic demo uses binary treatment labels, continuous outcomes, and four propensity scores. It prints the weighted treatment effect and the share of scores inside the chosen overlap region.
+The current baseline uses only the Python standard library.
 
-## What to evaluate next
+## Core API
 
-A serious version should estimate propensity scores from pre treatment covariates, define the causal estimand before analysis, examine weight instability, and run sensitivity analyses for unmeasured confounding.
+`fit_propensity_logistic(...)` estimates a transparent logistic propensity baseline.
+
+`ipw_weights(...)` creates ATE inverse-probability weights and reports explicit clipping.
+
+`raw_mean_difference(...)` returns the unadjusted treated-minus-control outcome difference.
+
+`ipw_ate(..., normalized=False)` returns the Horvitz-Thompson ATE.
+
+`ipw_ate(..., normalized=True)` returns the Hájek ATE.
+
+`common_support(...)` summarizes treated/control empirical propensity overlap.
+
+`standardized_mean_difference(...)` calculates unweighted or weighted balance and returns `None` when the scale is not estimable.
+
+`covariate_balance(...)` reports balance for named pre-treatment covariates.
+
+`weight_diagnostics(...)` reports magnitude and effective sample size.
+
+`bootstrap_ipw_ci(...)` returns fixed-propensity bootstrap uncertainty.
+
+`clipping_sensitivity(...)` compares several clipping choices.
+
+`analyze_ipw(...)` runs the integrated baseline.
 
 ## Evaluation view
 
-![Causal Learning Analytics evaluation dashboard](assets/evaluation_dashboard.svg)
+![Causal Learning Analytics evaluation checklist](assets/evaluation_dashboard.svg)
 
-The Causal Learning Analytics dashboard is an evaluation checklist rather than a result chart. The bars are illustrative only; the labels show the evidence a real study would need to collect.
+The graphic shows dimensions a real analysis should inspect. The bars are illustrative and are not empirical validation results.
 
 ## Limits and responsible use
 
-Inverse probability weighting only supports a causal interpretation when the identification assumptions are credible. This repository demonstrates mechanics and diagnostics, not proof that an intervention caused an outcome. See `docs/ethics_and_risks.md` for the broader risk review.
+This repository cannot establish:
+
+- absence of unmeasured confounding
+- correctness of a causal graph
+- consistency
+- no interference
+- appropriate outcome measurement
+- whether the adjustment set is sufficient
+
+It does not currently implement doubly robust estimation, matching, overlap weights, ATT/ATC, longitudinal treatment, instrumental variables, difference-in-differences, regression discontinuity, heterogeneous treatment effects, cluster-aware inference, or formal sensitivity analysis for unmeasured confounding.
+
+See `docs/ethics_and_risks.md` before using observational causal estimates to inform educational decisions.
 
 ## Repository map
 
@@ -87,6 +316,7 @@ Inverse probability weighting only supports a causal interpretation when the ide
 │   ├── README.md
 │   └── sample.csv
 ├── docs/
+│   ├── causal_analysis_record_example.json
 │   ├── ethics_and_risks.md
 │   ├── related_work.md
 │   └── research_protocol.md
@@ -94,6 +324,7 @@ Inverse probability weighting only supports a causal interpretation when the ide
 ├── scripts/run_demo.py
 ├── src/causal_learning_analytics/core.py
 ├── tests/test_core.py
+├── .gitignore
 ├── CITATION.cff
 ├── LICENSE
 ├── pyproject.toml
@@ -102,16 +333,21 @@ Inverse probability weighting only supports a causal interpretation when the ide
 
 ## Research path
 
-A credible next version would:
+A stronger empirical version would:
 
-1. add a documented propensity model using only pre treatment variables
-2. report balance before and after weighting
-3. run sensitivity and alternative specification checks
+1. reproduce a public observational education study from raw data to reported estimate
+2. compare several justified propensity specifications
+3. add distributional balance diagnostics beyond means
+4. add doubly robust estimation
+5. propagate propensity-model uncertainty
+6. add missing-data sensitivity
+7. implement a formal unmeasured-confounding sensitivity method
+8. benchmark estimates against mature causal-inference libraries
 
 ## Related work
 
-`docs/related_work.md` points to open projects that are relevant to this problem area. They are context for comparison and study design; this repository does not present their code as its own.
+`docs/related_work.md` places the implementation alongside established causal-inference guidance and mature causal software while keeping the scope of this dependency-free baseline explicit.
 
 ## Citation and license
 
-`CITATION.cff` contains the software citation. The code and original SVG visuals use the MIT License. Any external dataset keeps its own license and usage conditions.
+`CITATION.cff` contains the software citation. Code and original SVG visuals use the MIT License. External datasets retain their own licenses, governance requirements, and ethics constraints.
