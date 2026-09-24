@@ -541,6 +541,70 @@ def bootstrap_ipw_ci(
     )
 
 
+
+def clipping_sensitivity(
+    treatment: Sequence[int],
+    outcome: Sequence[Real],
+    propensity: Sequence[Real],
+    *,
+    clips: Sequence[float | None] = (None, 0.01, 0.025, 0.05, 0.10),
+) -> list[dict]:
+    """Compare ATE estimates and weight stability across clipping choices."""
+    treatment, outcome, propensity = _validate_inputs(
+        treatment,
+        outcome,
+        propensity,
+    )
+    clips = list(clips)
+    if not clips:
+        raise ValueError("clips must not be empty")
+
+    results = []
+    for clip in clips:
+        try:
+            weight_info = ipw_weights(
+                treatment,
+                propensity,
+                clip=clip,
+            )
+            diagnostics = weight_diagnostics(
+                treatment,
+                weight_info["weights"],
+            )
+            results.append(
+                {
+                    "clip": clip,
+                    "status": "ok",
+                    "clipped_count": weight_info["clipped_count"],
+                    "ipw_ate_ht": ipw_ate(
+                        treatment,
+                        outcome,
+                        propensity,
+                        clip=clip,
+                        normalized=False,
+                    ),
+                    "ipw_ate_hajek": ipw_ate(
+                        treatment,
+                        outcome,
+                        propensity,
+                        clip=clip,
+                        normalized=True,
+                    ),
+                    "max_weight": diagnostics["max_weight"],
+                    "overall_ess": diagnostics["overall_ess"],
+                }
+            )
+        except ValueError as exc:
+            results.append(
+                {
+                    "clip": clip,
+                    "status": "not_estimable",
+                    "reason": str(exc),
+                }
+            )
+
+    return results
+
 def causal_analysis_record(
     *,
     estimand: str = "ATE",
@@ -755,5 +819,10 @@ def analyze_ipw(
         "weight_diagnostics": weight_summary,
         "balance_before": balance_before,
         "balance_after": balance_after,
+        "clipping_sensitivity": clipping_sensitivity(
+            treatment,
+            outcome,
+            propensity,
+        ),
         "analysis_flags": review_flags,
     }
