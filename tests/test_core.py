@@ -281,6 +281,25 @@ class CoreTests(unittest.TestCase):
             result["analysis_flags"],
         )
 
+    def test_clipping_sensitivity_reports_multiple_specifications(self):
+        result = core.clipping_sensitivity(
+            TREATMENT,
+            OUTCOME,
+            PROPENSITY,
+        )
+        self.assertEqual(len(result), 5)
+        self.assertTrue(all("status" in row for row in result))
+        self.assertTrue(any(row["clip"] == 0.05 for row in result))
+
+    def test_clipping_sensitivity_exposes_endpoint_failure_without_clip(self):
+        result = core.clipping_sensitivity(
+            [1, 1, 0, 0],
+            [1.0, 0.9, 0.2, 0.1],
+            [1.0, 0.8, 0.2, 0.0],
+        )
+        untrimmed = next(row for row in result if row["clip"] is None)
+        self.assertEqual(untrimmed["status"], "not_estimable")
+
 
 if __name__ == "__main__":
     unittest.main()
