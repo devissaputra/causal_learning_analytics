@@ -300,6 +300,36 @@ class CoreTests(unittest.TestCase):
         untrimmed = next(row for row in result if row["clip"] is None)
         self.assertEqual(untrimmed["status"], "not_estimable")
 
+    def test_fit_propensity_logistic_returns_scores(self):
+        result = core.fit_propensity_logistic(
+            TREATMENT,
+            COVARIATES,
+            l2=0.1,
+        )
+        self.assertEqual(len(result["scores"]), len(TREATMENT))
+        self.assertTrue(all(0 < value < 1 for value in result["scores"]))
+        self.assertIn("baseline_score", result["standardized_coefficients"])
+
+    def test_fit_propensity_logistic_rejects_zero_variance_covariate(self):
+        with self.assertRaises(ValueError):
+            core.fit_propensity_logistic(
+                TREATMENT,
+                {"constant": [1.0] * len(TREATMENT)},
+            )
+
+    def test_fit_propensity_logistic_is_deterministic(self):
+        first = core.fit_propensity_logistic(
+            TREATMENT,
+            COVARIATES,
+            l2=0.1,
+        )
+        second = core.fit_propensity_logistic(
+            TREATMENT,
+            COVARIATES,
+            l2=0.1,
+        )
+        self.assertEqual(first["scores"], second["scores"])
+
 
 if __name__ == "__main__":
     unittest.main()
