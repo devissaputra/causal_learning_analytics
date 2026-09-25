@@ -1,6 +1,220 @@
 {
+  "estimand": "ATE",
+  "sample_size": 2349,
+  "treated_count": 1788,
+  "control_count": 561,
+  "raw_mean_difference": 0.47050150139372404,
+  "ipw_ate_ht": 0.44701496956203296,
+  "ipw_ate_hajek": 0.4486436319691466,
+  "confidence_level": 0.95,
+  "hajek_ate_ci": [
+    0.4149288635397482,
+    0.47989495327179116
+  ],
+  "propensity_original_range": [
+    0.1782468098111448,
+    0.9627944359049821
+  ],
+  "propensity_used_range": [
+    0.1782468098111448,
+    0.9627944359049821
+  ],
+  "clip": null,
+  "clipped_count": 0,
+  "common_support": {
+    "treated_range": [
+      0.27916294350947096,
+      0.9627944359049821
+    ],
+    "control_range": [
+      0.1782468098111448,
+      0.9344929919362219
+    ],
+    "common_support": [
+      0.27916294350947096,
+      0.9344929919362219
+    ],
+    "treated_fraction_in_support": 0.9888143176733781,
+    "control_fraction_in_support": 0.9893048128342246,
+    "overall_fraction_in_support": 0.988931460195828
+  },
+  "weight_diagnostics": {
+    "min_weight": 1.0386433102514208,
+    "max_weight": 15.26554226116377,
+    "mean_weight": 2.0089723648676765,
+    "overall_ess": 1410.8671080826102,
+    "treated_ess": 1744.99296619799,
+    "control_ess": 446.46164259978866
+  },
+  "balance_before": {
+    "studied_credits": {
+      "treated_mean": 74.35402684563758,
+      "control_mean": 94.06417112299465,
+      "smd": -0.437964765552436
+    },
+    "num_of_prev_attempts": {
+      "treated_mean": 0.09619686800894854,
+      "control_mean": 0.08912655971479501,
+      "smd": 0.024371705090506655
+    },
+    "date_registration": {
+      "treated_mean": -65.31767337807607,
+      "control_mean": -72.29411764705883,
+      "smd": 0.1515643779363113
+    },
+    "age_ord": {
+      "treated_mean": 0.3282997762863535,
+      "control_mean": 0.23529411764705882,
+      "smd": 0.19713070780607267
+    },
+    "education_ord": {
+      "treated_mean": 1.9865771812080537,
+      "control_mean": 1.7201426024955437,
+      "smd": 0.3581063069484683
+    },
+    "imd_mid": {
+      "treated_mean": 51.31431767337808,
+      "control_mean": 45.42780748663102,
+      "smd": 0.211067780388056
+    },
+    "disability_bin": {
+      "treated_mean": 0.07774049217002237,
+      "control_mean": 0.11051693404634581,
+      "smd": -0.11235107607980335
+    },
+    "gender_female": {
+      "treated_mean": 0.26733780760626397,
+      "control_mean": 0.23529411764705882,
+      "smd": 0.0738806657754573
+    }
+  },
+  "balance_after": {
+    "studied_credits": {
+      "treated_mean": 78.76815406201236,
+      "control_mean": 78.18546142712746,
+      "smd": 0.013592689663422133
+    },
+    "num_of_prev_attempts": {
+      "treated_mean": 0.09577629927192162,
+      "control_mean": 0.112076774054697,
+      "smd": -0.05339515101161049
+    },
+    "date_registration": {
+      "treated_mean": -66.48702048327992,
+      "control_mean": -63.49622511456675,
+      "smd": -0.06552500486802454
+    },
+    "age_ord": {
+      "treated_mean": 0.3059293036323808,
+      "control_mean": 0.3016463828107324,
+      "smd": 0.008853730549724286
+    },
+    "education_ord": {
+      "treated_mean": 1.927161322339327,
+      "control_mean": 1.9340402818080793,
+      "smd": -0.009046278505329915
+    },
+    "imd_mid": {
+      "treated_mean": 49.98427603562398,
+      "control_mean": 50.205994373520426,
+      "smd": -0.007962532691771693
+    },
+    "disability_bin": {
+      "treated_mean": 0.08515897320197612,
+      "control_mean": 0.08535268516499955,
+      "smd": -0.0006931682177133323
+    },
+    "gender_female": {
+      "treated_mean": 0.26012600484165543,
+      "control_mean": 0.25714446802679203,
+      "smd": 0.006804211166785797
+    }
+  },
+  "clipping_sensitivity": [
+    {
+      "clip": null,
+      "status": "ok",
+      "clipped_count": 0,
+      "ipw_ate_ht": 0.44701496956203296,
+      "ipw_ate_hajek": 0.4486436319691466,
+      "max_weight": 15.26554226116377,
+      "overall_ess": 1410.8671080826102
+    },
+    {
+      "clip": 0.01,
+      "status": "ok",
+      "clipped_count": 0,
+      "ipw_ate_ht": 0.44701496956203296,
+      "ipw_ate_hajek": 0.4486436319691466,
+      "max_weight": 15.26554226116377,
+      "overall_ess": 1410.8671080826102
+    },
+    {
+      "clip": 0.025,
+      "status": "ok",
+      "clipped_count": 0,
+      "ipw_ate_ht": 0.44701496956203296,
+      "ipw_ate_hajek": 0.4486436319691466,
+      "max_weight": 15.26554226116377,
+      "overall_ess": 1410.8671080826102
+    },
+    {
+      "clip": 0.05,
+      "status": "ok",
+      "clipped_count": 4,
+      "ipw_ate_ht": 0.4470150422389672,
+      "ipw_ate_hajek": 0.44864030451960973,
+      "max_weight": 15.26554226116377,
+      "overall_ess": 1410.8736888563276
+    },
+    {
+      "clip": 0.1,
+      "status": "ok",
+      "clipped_count": 130,
+      "ipw_ate_ht": 0.44986888071771064,
+      "ipw_ate_hajek": 0.45037250446560045,
+      "max_weight": 10.000000000000002,
+      "overall_ess": 1454.1921043743005
+    }
+  ],
+  "analysis_flags": [
+    "causal_assumptions_unverified",
+    "extreme_weights"
+  ],
   "research_bundle": true,
-  "status": "regenerate_required",
-  "message": "Download OULAD from the official source and run scripts/run_oulad_study.py. The former synthetic numbers are not empirical evidence.",
-  "dataset": "Open University Learning Analytics Dataset"
+  "dataset": "OULAD",
+  "dataset_provenance": {
+    "source": "https://archive.ics.uci.edu/static/public/349/open%2Buniversity%2Blearning%2Banalytics%2Bdataset.zip",
+    "uci_id": 349,
+    "doi": "10.24432/C5KK69",
+    "license": "CC BY 4.0",
+    "archive_sha256": "f2ed1902616c1fe8d2824d872c0b7d2d72be435bf0124d077044fe4be2c6d3e4",
+    "files": [
+      "studentInfo.csv",
+      "studentRegistration.csv",
+      "assessments.csv",
+      "studentAssessment.csv"
+    ]
+  },
+  "cohort": {
+    "code_module": "CCC",
+    "code_presentation": "2014J",
+    "n": 2349,
+    "treated": 1788,
+    "control": 561
+  },
+  "treatment_definition": "at least one assessment submitted on or before day 30",
+  "outcome_definition": "Pass or Distinction",
+  "covariates": [
+    "studied_credits",
+    "num_of_prev_attempts",
+    "date_registration",
+    "age_ord",
+    "education_ord",
+    "imd_mid",
+    "disability_bin",
+    "gender_female"
+  ],
+  "missing_data_rule": "complete-case analysis on the frozen adjustment set",
+  "propensity_model": "standardized logistic regression; same-cohort complete-case analysis"
 }
