@@ -5,40 +5,66 @@
 Primary dataset: Open University Learning Analytics Dataset (OULAD)  
 UCI Machine Learning Repository dataset: 349  
 DOI: https://doi.org/10.24432/C5KK69  
-License reported by UCI: CC BY 4.0  
-Original project: https://analyse.kmi.open.ac.uk/open_dataset
+Original data paper: Kuzilek, Hlosta, & Zdrahal (2017), Scientific Data 4, 170171  
+DOI: https://doi.org/10.1038/sdata.2017.171
 
-The empirical runner downloads the UCI-hosted archive. Raw source data are cached locally under `data/cache/` and are not committed.
+The empirical runner downloads the UCI-hosted archive and records its SHA-256. Raw source files are stored only under gitignored data/cache/ and are not committed.
 
 ## Tables used
 
-The frozen study uses only:
+- studentInfo.csv
+- studentRegistration.csv
+- assessments.csv
+- studentAssessment.csv
 
-- `studentInfo.csv`
-- `studentRegistration.csv`
-- `assessments.csv`
-- `studentAssessment.csv`
+The current estimand does not require the large VLE interaction table.
 
-The large VLE interaction table is not required for the current estimand.
+## Fields critical to temporal validity
 
-## Provenance
+### date_registration
+The learner's registration day for the module-presentation. The day-30 landmark cohort requires registration on or before day 30.
 
-A successful external-data run records:
+### date_unregistration
+OULAD records the day of unregistration for learners who withdraw. This field is used to exclude learners who already left on or before the day-30 landmark.
 
+### is_banked
+OULAD defines this studentAssessment flag as an assessment result transferred from a previous presentation. Banked records are excluded from the early-submission exposure because they are not fresh submissions in the current presentation.
+
+### date_submitted
+Used to classify non-banked submissions through day 30. A submission is counted only when it is not earlier than the learner's recorded registration date.
+
+## Landmark population
+
+The analysis includes learners who:
+1. registered by day 30;
+2. did not unregister on or before day 30;
+3. have observable withdrawal timing when final_result is Withdrawn.
+
+Outcome follow-up is therefore after the end of the exposure-classification window.
+
+## Provenance recorded by the runner
+
+A successful run records:
 - UCI dataset ID;
-- DOI and license;
+- DOI and reported license;
 - canonical download URL;
-- SHA-256 of the downloaded archive;
-- exact table names used.
-
-## Temporal boundary
-
-Exposure is defined as at least one assessment submission on or before presentation day 30. The adjustment set is restricted to registration/background information. Assessment score and later learning behavior are excluded from the propensity model.
+- archive SHA-256;
+- exact source tables;
+- source registration count;
+- landmark exclusions;
+- banked submissions excluded;
+- submissions before registration excluded.
 
 ## Missingness
 
-The current frozen adapter uses complete-case analysis on the predefined adjustment covariates. This can change the study population and is therefore recorded as a design limitation, not silently treated as harmless.
+The primary analysis uses complete cases for the frozen adjustment set. The generated evidence reports each covariate's missing count, the number excluded for any missing covariate, and the final complete-case sample.
 
-## Limitations
+Complete-case analysis can change the target population and may induce selection bias.
 
-OULAD represents historical Open University distance-learning contexts. The selected module-presentation and complete-case cohort are not automatically representative of other courses, institutions, countries, or present-day learners.
+## License boundary
+
+The repository's MIT license applies to repository code and original project materials. It does not relicense OULAD. Dataset use remains subject to the source dataset terms.
+
+## Generalizability
+
+OULAD represents historical Open University distance-learning contexts. Results from one landmarked module-presentation are not automatically transferable to other institutions, modalities, countries or present-day learners.
