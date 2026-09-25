@@ -1,99 +1,116 @@
-# Causal Learning Analytics — Research Bundle
+# Causal Learning Analytics — OULAD Day-30 Landmark Research Bundle
 
 [![CI](https://github.com/devissaputra/causal_learning_analytics/actions/workflows/ci.yml/badge.svg)](https://github.com/devissaputra/causal_learning_analytics/actions/workflows/ci.yml)
 [![Empirical Study](https://github.com/devissaputra/causal_learning_analytics/actions/workflows/empirical.yml/badge.svg)](https://github.com/devissaputra/causal_learning_analytics/actions/workflows/empirical.yml)
 
-**Research Bundle · AI in Education · observational causal inference and diagnostics**
+**Research Bundle · AI in Education · observational causal inference · learning analytics**
 
-This repository combines a transparent inverse-probability-weighting engine with an empirical adapter for the **Open University Learning Analytics Dataset (OULAD)**. The old 12-row synthetic example is retained only as a software smoke test; it is no longer the research evidence.
+This repository studies a deliberately narrow question in the Open University Learning Analytics Dataset (OULAD): among learners who are registered and still under observation at presentation day 30, what adjusted contrast in favorable final course outcome is associated with having submitted at least one **non-banked** assessment by that landmark?
 
-## Empirical question
+The design uses a day-30 landmark so treatment classification, eligibility and outcome follow-up are temporally separated. It does not claim that early submission itself causes success.
 
-> Within one OULAD module-presentation cohort, what is the adjusted association between submitting at least one assessment by day 30 and a favorable final course result after weighting on measured pre-treatment characteristics?
+![Landmark architecture](assets/architecture.svg)
 
-The wording is intentionally cautious. The analysis estimates an ATE-style weighted contrast under explicit identification assumptions. It does **not** establish that early submission causes success.
+## Frozen study declaration
 
-## Real dataset
+**Eligibility at day 30**
+- registered on or before presentation day 30;
+- not unregistered on or before day 30;
+- withdrawn learners must have an observed unregistration date after day 30.
 
-OULAD is an anonymized public learning-analytics dataset from The Open University.
+**Exposure**
+At least one non-banked assessment submitted after registration and on or before day 30.
 
-The research adapter uses:
+**Outcome**
+Pass or Distinction versus Fail or withdrawal after the day-30 landmark.
 
-- `studentInfo.csv`
-- `studentRegistration.csv`
-- `assessments.csv`
-- `studentAssessment.csv`
+**Target population**
+The selected OULAD module-presentation cohort satisfying the landmark eligibility rule and the frozen complete-case adjustment rule.
 
-The original release contains 32,593 student registrations across 22 module presentations and is linked to the Scientific Data paper by Kuzilek, Hlosta & Zdrahal (2017), DOI 10.1038/sdata.2017.171.
+**Estimand**
+An ATE-style observational contrast in that landmark population under explicit causal assumptions.
 
-The empirical runner retrieves the UCI-hosted OULAD archive (dataset 349), records the archive SHA-256, and extracts only the four required CSV files into a gitignored cache. UCI reports DOI `10.24432/C5KK69` and CC BY 4.0. Raw files are **not** committed. See [DATA.md](DATA.md) and [docs/dataset_card.md](docs/dataset_card.md).
+## Why the landmark matters
 
-## Target-trial-style declaration
+The original prototype classified exposure using activity accumulated through day 30 while allowing withdrawals during that same period to count as adverse outcomes. That mixes treatment assignment and outcome timing.
 
-### Population
-One module-presentation cohort selected before outcome estimation. By default, the runner chooses the largest cohort with sufficient treated and control observations.
+The current protocol instead establishes eligibility at the end of the exposure window. Learners who already unregistered by day 30 are not part of the landmark population. This makes the timing contract executable and inspectable.
 
-### Exposure
-`treatment = 1` when the learner submitted at least one recorded assessment on or before presentation day 30.
+OULAD records unregistration day in studentRegistration and marks transferred prior-assessment results using is_banked in studentAssessment. The empirical adapter uses both fields explicitly.
 
-### Outcome
-`1` for `Pass` or `Distinction`; `0` for `Fail` or `Withdrawn`.
+## Baseline adjustment set
 
-### Measured pre-treatment covariates
-The default adapter encodes only information available at registration or before the exposure window:
-
+Numeric variables:
 - studied credits;
 - number of previous attempts;
-- registration timing;
+- registration timing.
+
+Categorical variables:
 - age band;
 - highest prior education;
-- deprivation-band midpoint when available;
+- deprivation band;
 - disability indicator;
-- gender indicator.
+- gender;
+- region.
 
-No assessment score or post-day-30 behavior is included in the propensity model.
+Categorical variables are one-hot encoded rather than forced into arbitrary linear ordinal scores. See [docs/causal_dag.md](docs/causal_dag.md) for the adjustment rationale and causal graph.
 
-## Analysis path
+## Empirical workflow
 
-1. Load original OULAD CSV files.
-2. Build learner-module-presentation records.
-3. Freeze the cohort and exposure definition.
-4. Encode pre-treatment covariates.
-5. Estimate logistic propensity scores.
-6. Inspect empirical common support.
-7. Compute ATE inverse-probability weights.
-8. Compare raw and weighted outcome contrasts.
-9. Inspect covariate balance before and after weighting.
-10. Report effective sample size and extreme weights.
-11. Bootstrap the Hájek estimate conditional on fitted propensity scores.
-12. Preserve `causal_assumptions_unverified` and any additional review flags.
+1. Retrieve the pinned UCI OULAD archive and record its SHA-256.
+2. Validate unique learner-registration keys.
+3. Exclude banked assessment records from exposure construction.
+4. Apply the day-30 registration/withdrawal landmark.
+5. Select one module-presentation cohort.
+6. Report complete-case exclusions for every frozen adjustment covariate.
+7. Fit a standardized numeric + one-hot categorical logistic propensity model.
+8. Inspect overlap, IPW weights, effective sample size and covariate balance.
+9. Report raw, Horvitz-Thompson and Hájek contrasts.
+10. Use a **full-refit bootstrap** that refits the propensity model inside every resample as the primary uncertainty interval.
+11. Retain the older fixed-propensity bootstrap as a secondary diagnostic.
+12. Run common-support and propensity-specification sensitivity analyses.
+13. Generate empirical propensity, balance, weight and sensitivity figures.
+14. Preserve causal non-claims and review flags.
 
-## Run the real study
+## Reproduce
 
-The default command downloads the external UCI archive automatically:
+For normal development:
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python scripts/run_oulad_study.py
-```
+    python -m venv .venv
+    source .venv/bin/activate
+    pip install -r requirements.txt
+    python -m unittest discover -s tests -v
+    python scripts/run_oulad_study.py
 
-A local OULAD extraction can still be supplied with `--data-dir /path/to/oulad`. To freeze a particular cohort, add `--module BBB --presentation 2013J`.
+For the professor-facing reproduction environment, use requirements-repro.txt.
 
-## What makes this a Research Bundle
+A specific cohort can be frozen only by supplying both arguments:
 
-- real educational data;
-- explicit estimand/exposure/outcome timing;
-- pre-treatment adjustment boundary;
-- propensity provenance;
-- overlap and weight diagnostics;
-- before/after balance;
-- raw versus adjusted estimates;
-- uncertainty and clipping-sensitivity support;
-- explicit causal assumptions and non-claims;
-- tests/CI and paper-ready research protocol.
+    python scripts/run_oulad_study.py --module CCC --presentation 2014J
 
-## Critical interpretation boundary
+Supplying only one is rejected.
 
-An IPW estimate is not automatically causal. Unmeasured motivation, prior achievement, course-specific factors, access constraints and other confounders may affect both early submission and final result. This bundle is designed to make those assumptions visible rather than bury them behind one effect number.
+## Evidence map
+
+| Evidence | Location |
+|---|---|
+| Dataset source and temporal fields | DATA.md |
+| Research protocol | docs/research_protocol.md |
+| Causal graph and adjustment rationale | docs/causal_dag.md |
+| Dataset card | docs/dataset_card.md |
+| Analysis card | reports/model_card.md |
+| Executable OULAD adapter | scripts/run_oulad_study.py |
+| Core IPW implementation | src/causal_learning_analytics/core.py |
+| Core + adapter tests | tests/ |
+| Machine-readable empirical record | results/oulad_metrics.json |
+| Generated empirical summary | results/summary.md |
+| Empirical figures | results/figures/ |
+| Manuscript | paper/paper.md |
+| Ethics and non-claims | ETHICS.md |
+| Evidence contract | RESEARCH_BUNDLE.md |
+
+## Interpretation boundary
+
+Measured covariate balance does not prove exchangeability. OULAD does not fully measure motivation, prior achievement, work constraints, access, instructional context or every determinant of both early submission and final outcome. The adjusted contrast remains observational unless the causal assumptions are independently defensible.
+
+This repository is a transparent causal-learning-analytics research bundle, not a learner-scoring or intervention-deployment system.
