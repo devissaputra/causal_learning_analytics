@@ -1,35 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="title desc">
-<title id="title">Causal Learning Analytics workflow</title>
-<desc id="desc">Causal question and pre-treatment data move through propensity modeling, overlap and weight diagnostics, balance checks, effect estimation, uncertainty and human interpretation.</desc>
-<rect width="1200" height="300" rx="24" fill="#f7f8fa"/>
-<text x="50" y="48" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" fill="#17202a">Causal Learning Analytics · baseline architecture</text>
-<text x="50" y="76" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#59636e">Diagnostics can challenge an analysis; they cannot prove the identifying assumptions.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="380" viewBox="0 0 1200 380" role="img" aria-labelledby="title desc">
+<title id="title">OULAD day-30 landmark causal learning analytics architecture</title>
+<desc id="desc">Real OULAD records flow through landmark eligibility, non-banked exposure construction, baseline propensity adjustment, diagnostics, uncertainty and sensitivity analyses.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#64748b"/></marker></defs>
+<rect width="1200" height="380" rx="24" fill="#f8fafc"/>
+<text x="48" y="48" font-family="Arial" font-size="26" font-weight="700" fill="#0f172a">Causal Learning Analytics · day-30 landmark architecture</text>
+<text x="48" y="78" font-family="Arial" font-size="15" fill="#475569">Eligibility and exposure are completed by day 30; final outcome is evaluated afterward.</text>
 
-<rect x="50" y="120" width="190" height="92" rx="16" fill="#fff" stroke="#38598b" stroke-width="2"/>
-<circle cx="75" cy="145" r="14" fill="#38598b"/><text x="75" y="150" text-anchor="middle" font-family="Arial" font-size="13" font-weight="700" fill="#fff">1</text>
-<text x="145" y="148" text-anchor="middle" font-family="Arial" font-size="15" font-weight="600" fill="#26323d">Estimand +</text><text x="145" y="169" text-anchor="middle" font-family="Arial" font-size="15" font-weight="600" fill="#26323d">pre-treatment data</text>
+<rect x="38" y="125" width="210" height="128" rx="16" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="143" y="158" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#0f172a">OULAD source</text>
+<text x="143" y="184" text-anchor="middle" font-family="Arial" font-size="13" fill="#475569">registration + unregistration</text>
+<text x="143" y="206" text-anchor="middle" font-family="Arial" font-size="13" fill="#475569">assessment + banked flag</text>
+<text x="143" y="228" text-anchor="middle" font-family="Arial" font-size="13" fill="#475569">final course outcome</text>
 
-<line x1="248" y1="166" x2="269.5" y2="166" stroke="#8391a1" stroke-width="2"/><path d="M261.5 160 L269.5 166 L261.5 172" fill="none" stroke="#8391a1" stroke-width="2"/>
+<line x1="258" y1="189" x2="305" y2="189" stroke="#64748b" stroke-width="2.5" marker-end="url(#arrow)"/>
 
-<rect x="277.5" y="120" width="190" height="92" rx="16" fill="#fff" stroke="#38598b" stroke-width="2"/>
-<circle cx="302.5" cy="145" r="14" fill="#38598b"/><text x="302.5" y="150" text-anchor="middle" font-family="Arial" font-size="13" font-weight="700" fill="#fff">2</text>
-<text x="372.5" y="148" text-anchor="middle" font-family="Arial" font-size="15" font-weight="600" fill="#26323d">Propensity</text><text x="372.5" y="169" text-anchor="middle" font-family="Arial" font-size="15" font-weight="600" fill="#26323d">model / scores</text>
+<rect x="315" y="111" width="235" height="156" rx="16" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="432" y="145" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#0f172a">Day-30 landmark</text>
+<text x="432" y="172" text-anchor="middle" font-family="Arial" font-size="13" fill="#475569">registered by day 30</text>
+<text x="432" y="194" text-anchor="middle" font-family="Arial" font-size="13" fill="#475569">not withdrawn by day 30</text>
+<text x="432" y="216" text-anchor="middle" font-family="Arial" font-size="13" fill="#475569">non-banked submission exposure</text>
+<text x="432" y="238" text-anchor="middle" font-family="Arial" font-size="13" fill="#475569">one module-presentation only</text>
 
-<line x1="475.5" y1="166" x2="497" y2="166" stroke="#8391a1" stroke-width="2"/><path d="M489 160 L497 166 L489 172" fill="none" stroke="#8391a1" stroke-width="2"/>
+<line x1="560" y1="189" x2="607" y2="189" stroke="#64748b" stroke-width="2.5" marker-end="url(#arrow)"/>
 
-<rect x="505" y="120" width="190" height="92" rx="16" fill="#fff" stroke="#38598b" stroke-width="2"/>
-<circle cx="530" cy="145" r="14" fill="#38598b"/><text x="530" y="150" text-anchor="middle" font-family="Arial" font-size="13" font-weight="700" fill="#fff">3</text>
-<text x="600" y="143" text-anchor="middle" font-family="Arial" font-size="15" font-weight="600" fill="#26323d">Support + weights</text><text x="600" y="164" text-anchor="middle" font-family="Arial" font-size="15" font-weight="600" fill="#26323d">+ balance</text>
+<rect x="617" y="111" width="245" height="156" rx="16" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="739" y="145" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#0f172a">Measured adjustment</text>
+<text x="739" y="172" text-anchor="middle" font-family="Arial" font-size="13" fill="#475569">numeric standardization</text>
+<text x="739" y="194" text-anchor="middle" font-family="Arial" font-size="13" fill="#475569">categorical one-hot encoding</text>
+<text x="739" y="216" text-anchor="middle" font-family="Arial" font-size="13" fill="#475569">logistic propensity model</text>
+<text x="739" y="238" text-anchor="middle" font-family="Arial" font-size="13" fill="#475569">ATE weights + overlap sensitivity</text>
 
-<line x1="703" y1="166" x2="724.5" y2="166" stroke="#8391a1" stroke-width="2"/><path d="M716.5 160 L724.5 166 L716.5 172" fill="none" stroke="#8391a1" stroke-width="2"/>
+<line x1="872" y1="189" x2="919" y2="189" stroke="#64748b" stroke-width="2.5" marker-end="url(#arrow)"/>
 
-<rect x="732.5" y="120" width="190" height="92" rx="16" fill="#fff" stroke="#38598b" stroke-width="2"/>
-<circle cx="757.5" cy="145" r="14" fill="#38598b"/><text x="757.5" y="150" text-anchor="middle" font-family="Arial" font-size="13" font-weight="700" fill="#fff">4</text>
-<text x="827.5" y="143" text-anchor="middle" font-family="Arial" font-size="15" font-weight="600" fill="#26323d">Raw + IPW effects</text><text x="827.5" y="164" text-anchor="middle" font-family="Arial" font-size="15" font-weight="600" fill="#26323d">+ uncertainty</text>
+<rect x="929" y="100" width="235" height="178" rx="16" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="1046" y="134" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#0f172a">Evidence</text>
+<text x="1046" y="161" text-anchor="middle" font-family="Arial" font-size="13" fill="#475569">overlap · balance · ESS</text>
+<text x="1046" y="183" text-anchor="middle" font-family="Arial" font-size="13" fill="#475569">HT + Hajek contrasts</text>
+<text x="1046" y="205" text-anchor="middle" font-family="Arial" font-size="13" fill="#475569">full-refit bootstrap</text>
+<text x="1046" y="227" text-anchor="middle" font-family="Arial" font-size="13" fill="#475569">support + specification sensitivity</text>
+<text x="1046" y="249" text-anchor="middle" font-family="Arial" font-size="13" fill="#475569">explicit non-causal boundary</text>
 
-<line x1="930.5" y1="166" x2="952" y2="166" stroke="#8391a1" stroke-width="2"/><path d="M944 160 L952 166 L944 172" fill="none" stroke="#8391a1" stroke-width="2"/>
-
-<rect x="960" y="120" width="190" height="92" rx="16" fill="#fff" stroke="#38598b" stroke-width="2"/>
-<circle cx="985" cy="145" r="14" fill="#38598b"/><text x="985" y="150" text-anchor="middle" font-family="Arial" font-size="13" font-weight="700" fill="#fff">5</text>
-<text x="1055" y="148" text-anchor="middle" font-family="Arial" font-size="15" font-weight="600" fill="#26323d">Sensitivity +</text><text x="1055" y="169" text-anchor="middle" font-family="Arial" font-size="15" font-weight="600" fill="#26323d">causal review</text>
+<text x="48" y="326" font-family="Arial" font-size="14" fill="#475569">The design reduces temporal misclassification. It does not prove exchangeability or eliminate unmeasured confounding.</text>
 </svg>
