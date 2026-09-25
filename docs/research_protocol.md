@@ -63,6 +63,12 @@ The primary analysis is complete-case on the frozen adjustment set. The generate
 
 Complete-case analysis can induce selection bias and is treated as a study limitation.
 
+## Empirical categorical support
+
+After complete-case construction and before propensity estimation, the runner checks every frozen categorical baseline level for observed treatment variation. Rows belonging to a category level with only exposed or only unexposed observations are excluded, and the exact levels and counts are recorded.
+
+This is a pre-outcome empirical-positivity restriction. It narrows the target population rather than manufacturing a comparison where none exists.
+
 ## Propensity model
 
 The primary model is L2 logistic regression with:
