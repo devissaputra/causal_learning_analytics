@@ -189,6 +189,37 @@ def choose_cohort(frame, module=None, presentation=None, min_group: int = 30):
     ].copy()
 
 
+def restrict_categorical_support(frame: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
+    restricted = frame.copy()
+    unsupported = {}
+    total_excluded = 0
+    while True:
+        to_drop = pd.Series(False, index=restricted.index)
+        round_unsupported = {}
+        for name in CATEGORICAL_COVARIATES:
+            table = pd.crosstab(restricted[name], restricted["treatment"])
+            bad_levels = [
+                str(level)
+                for level, row in table.iterrows()
+                if row.get(0, 0) == 0 or row.get(1, 0) == 0
+            ]
+            if bad_levels:
+                round_unsupported[name] = bad_levels
+                to_drop |= restricted[name].astype(str).isin(bad_levels)
+        if not round_unsupported or not bool(to_drop.any()):
+            break
+        for name, levels in round_unsupported.items():
+            unsupported.setdefault(name, [])
+            unsupported[name] = sorted(set(unsupported[name]).union(levels))
+        excluded_now = int(to_drop.sum())
+        total_excluded += excluded_now
+        restricted = restricted.loc[~to_drop].copy()
+    return restricted, {
+        "excluded_for_categorical_empirical_support": int(total_excluded),
+        "unsupported_levels": unsupported,
+    }
+
+
 def prepare_analysis(cohort: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     required = NUMERIC_COVARIATES + CATEGORICAL_COVARIATES
     analysis = cohort[KEY + ["treatment", "outcome"] + required].copy()
@@ -198,14 +229,17 @@ def prepare_analysis(cohort: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     missing_by_covariate = {name: int(analysis[name].isna().sum()) for name in required}
     any_missing = analysis[required].isna().any(axis=1)
     complete = analysis.loc[~any_missing].copy()
-    counts = complete["treatment"].value_counts()
+    supported, support_meta = restrict_categorical_support(complete)
+    counts = supported["treatment"].value_counts()
     if counts.get(0, 0) < 30 or counts.get(1, 0) < 30:
-        raise ValueError("complete-case landmark cohort lacks at least 30 observations in each exposure group")
-    return complete, {
+        raise ValueError("supported complete-case landmark cohort lacks at least 30 observations in each exposure group")
+    return supported, {
         "landmark_cohort_before_complete_case": int(len(analysis)),
         "excluded_for_any_missing_covariate": int(any_missing.sum()),
-        "complete_case_n": int(len(complete)),
+        "complete_case_before_support_n": int(len(complete)),
+        "complete_case_n": int(len(supported)),
         "missing_by_covariate": missing_by_covariate,
+        "categorical_support": support_meta,
     }
 
 
@@ -277,6 +311,7 @@ def overlap_weighting_analysis(treatment, outcome, propensity, covariates):
         "weight_diagnostics": diagnostics,
         "balance_after": balance,
         "max_abs_smd_after": float(max(residual)) if residual else None,
+        "balance_not_estimable_count": int(sum(item["smd"] is None for item in balance.values())),
         "interpretation": "Overlap weights downweight observations with near-deterministic exposure and target the covariate-overlap population; this is a sensitivity estimand, not the same ATE target.",
     }
 
@@ -503,6 +538,8 @@ def write_summary(result: dict):
         "## Missing-data accounting",
         "",
         f"- Excluded for any frozen adjustment covariate: {missing['excluded_for_any_missing_covariate']}",
+        f"- Complete cases before categorical support restriction: {missing['complete_case_before_support_n']}",
+        f"- Excluded for categorical empirical support: {missing['categorical_support']['excluded_for_categorical_empirical_support']}",
     ]
     for name, count in missing["missing_by_covariate"].items():
         lines.append(f"- Missing {name}: {count}")
