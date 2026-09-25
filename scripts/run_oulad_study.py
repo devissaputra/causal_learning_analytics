@@ -208,7 +208,12 @@ def main():
         "studied_credits", "num_of_prev_attempts", "date_registration",
         "age_ord", "education_ord", "imd_mid", "disability_bin", "gender_female",
     ]
-    analysis = frame[KEY + ["treatment", "outcome"] + covariate_names].dropna().copy()
+    analysis = frame[KEY + ["treatment", "outcome"] + covariate_names].copy()
+    # OULAD/UCI may encode missing values as literal "?" strings. Coerce the
+    # frozen numeric adjustment set first, then apply the declared complete-case rule.
+    for name in covariate_names:
+        analysis[name] = pd.to_numeric(analysis[name], errors="coerce")
+    analysis = analysis.dropna(subset=covariate_names).copy()
     if analysis["treatment"].nunique() != 2:
         raise ValueError("selected cohort does not contain both exposure groups")
 
