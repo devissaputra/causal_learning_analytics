@@ -1,7 +1,19 @@
 # Data Policy
 
-This Research Bundle uses the real **Open University Learning Analytics Dataset (OULAD)**.
+The empirical study retrieves real OULAD source tables at run time. Raw learner data are not committed to this repository.
 
-Raw OULAD tables are not committed here. Obtain them from the official Open University dataset page and pass the extracted directory to `scripts/run_oulad_study.py`.
+The day-30 research path uses:
+- studentInfo.csv;
+- studentRegistration.csv;
+- assessments.csv;
+- studentAssessment.csv.
 
-The former synthetic `data/sample.csv` has been removed from the research data directory. The repository's small synthetic demo is a software fixture only and must not be cited as empirical evidence.
+The adapter validates unique learner-registration keys, uses date_registration and date_unregistration to establish landmark eligibility, and excludes is_banked assessment transfers from exposure classification.
+
+data/cache/ is gitignored.
+
+See:
+- ../DATA.md for provenance and temporal-field definitions;
+- ../docs/dataset_card.md for study-unit and validity notes;
+- ../docs/causal_dag.md for adjustment rationale;
+- ../REPRODUCIBILITY.md for execution instructions.
