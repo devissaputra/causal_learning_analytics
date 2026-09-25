@@ -105,6 +105,32 @@ class OULADStudyTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             study.prepare_analysis(cohort)
 
+    def test_categorical_support_restriction_removes_unmatched_levels(self):
+        rows = []
+        for i in range(60):
+            rows.append({
+                "treatment": i % 2,
+                "age_band": "0-35",
+                "highest_education": "A Level or Equivalent",
+                "imd_band": "50-60%",
+                "disability": "N",
+                "gender": "M" if i % 2 else "F",
+                "region": "North",
+            })
+        rows.append({
+            "treatment": 1,
+            "age_band": "55<=",
+            "highest_education": "A Level or Equivalent",
+            "imd_band": "50-60%",
+            "disability": "N",
+            "gender": "M",
+            "region": "North",
+        })
+        frame = pd.DataFrame(rows)
+        restricted, meta = study.restrict_categorical_support(frame)
+        self.assertNotIn("55<=", set(restricted["age_band"]))
+        self.assertGreater(meta["excluded_for_categorical_empirical_support"], 0)
+
     def test_propensity_pipeline_handles_categorical_covariates(self):
         rows = []
         for i in range(80):
