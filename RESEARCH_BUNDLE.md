@@ -33,19 +33,20 @@ A valid empirical run records:
 10. missing count per covariate and complete-case exclusions;
 11. categorical baseline levels lacking both exposure groups and the resulting positivity-support exclusions;
 12. final sample size and exposure prevalence;
-12. numeric/categorical propensity specification;
-13. propensity-score range and common support;
-14. weight diagnostics and effective sample size;
-15. SMDs before and after weighting for expanded categorical indicators;
-16. raw, Horvitz-Thompson and Hájek contrasts;
-17. fixed-propensity bootstrap interval;
-18. full-refit bootstrap interval and seed;
-19. clipping sensitivity;
-20. common-support sensitivity;
-21. alternative propensity-specification sensitivity;
-22. environment versions;
-23. empirical figures;
-24. analysis flags including causal_assumptions_unverified.
+13. numeric/categorical propensity specification;
+14. propensity-score range and common support;
+15. ATE weight diagnostics and effective sample size;
+16. SMDs before and after ATE weighting for expanded categorical indicators;
+17. raw, Horvitz-Thompson and Hájek ATE-style contrasts;
+18. fixed-propensity bootstrap interval;
+19. full-refit ATE bootstrap interval and seed;
+20. overlap-weighted ATO sensitivity estimate, interval, ESS and balance;
+21. clipping sensitivity;
+22. common-support sensitivity;
+23. alternative propensity-specification sensitivity;
+24. environment versions;
+25. empirical figures;
+26. analysis flags including causal_assumptions_unverified.
 
 ## Authoritative evidence
 
