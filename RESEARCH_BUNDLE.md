@@ -31,7 +31,8 @@ A valid empirical run records:
 8. selected module-presentation;
 9. landmark cohort size;
 10. missing count per covariate and complete-case exclusions;
-11. final sample size and exposure prevalence;
+11. categorical baseline levels lacking both exposure groups and the resulting positivity-support exclusions;
+12. final sample size and exposure prevalence;
 12. numeric/categorical propensity specification;
 13. propensity-score range and common support;
 14. weight diagnostics and effective sample size;
