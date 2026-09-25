@@ -88,6 +88,7 @@ Before interpreting the contrast, report:
 - residual balance flags;
 - clipping sensitivity;
 - common-support restriction sensitivity;
+- overlap-weighted ATO sensitivity with separate balance/ESS diagnostics;
 - propensity-specification sensitivity.
 
 ## Effect reporting
