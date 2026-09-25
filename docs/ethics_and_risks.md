@@ -1,73 +1,95 @@
-# Ethics, safety, and misuse risks
+# Ethics, Validity, and Misuse Risks
 
 ## Intended use
 
-Causal Learning Analytics is a research scaffold for studying whether an educational intervention may have changed an outcome under explicitly stated assumptions.
+This repository is a reproducible observational study of early non-banked assessment submission and later course outcome in an OULAD day-30 landmark population.
 
-It should not be used to turn observational correlations into authoritative causal claims.
+It is intended for causal-methodology inspection and AI in Education research, not for operational learner scoring.
 
 ## Main risk: causal overclaiming
 
-Inverse-probability weighting can produce a precise-looking number even when the identifying assumptions are not credible.
+Inverse-probability weighting can produce a precise-looking contrast while important confounders remain unmeasured.
 
-Measured covariate balance, propensity overlap, stable weights, and a narrow confidence interval do not establish that all important confounders were measured.
+The repository therefore distinguishes:
+- the observed weighted contrast;
+- measured overlap and balance;
+- sampling/model uncertainty;
+- assumptions required for causal interpretation;
+- assumptions that remain unverified.
 
-Every empirical report should distinguish:
+## Landmark-selection risk
 
-- what the software calculated
-- what assumptions are required for a causal interpretation
-- which assumptions were empirically diagnosed
-- which assumptions remain fundamentally unverified
+The study conditions on remaining registered through day 30. That fixes the prior timing problem but changes the target population.
 
-## Adjustment-set risk
+Learners who withdraw earlier are outside the landmark estimand. The result must not be generalized back to all original registrations without a separate argument.
 
-Including post-treatment variables can induce bias.
+## Positivity and support
 
-Do not add a variable to the propensity model simply because it predicts treatment or outcome well.
+The runner:
+- reports propensity overlap;
+- flags extreme ATE weights;
+- removes categorical baseline levels with no observed exposed/unexposed comparison before weighting;
+- reports those exclusions;
+- provides common-support and overlap-weighted sensitivity analyses.
 
-The adjustment set should be justified from the temporal and causal structure of the study.
+These operations change the represented population and are recorded explicitly. They are not chosen based on whether the outcome estimate becomes more favorable.
 
-## Intervention decisions
+## Sensitive baseline variables
 
-Do not use a single observational estimate to automatically decide who should receive educational support, who should be denied support, which teacher should be sanctioned, or which program should be removed.
+Gender, disability, deprivation band and region appear only as aggregate baseline adjustment variables.
 
-Consequential decisions should consider design quality, uncertainty, replication, distributional effects, implementation constraints, and the possibility of unmeasured confounding.
+Their use here does not justify:
+- individual profiling;
+- ranking;
+- access restriction;
+- automated support allocation;
+- claims that subgroup differences are causal.
 
-## Fairness and heterogeneity
+## Missing-data risk
 
-An average treatment effect can hide different effects across learner groups and contexts.
+The primary study uses complete cases for the frozen adjustment set. Missing deprivation information is therefore a source of possible selection bias.
 
-The current repository does not estimate heterogeneous treatment effects and should not be interpreted as showing that an intervention works equally well for everyone.
+The generated evidence reports missing counts and complete-case exclusions rather than treating them as harmless.
 
-Subgroup analysis also creates privacy and multiplicity risks and requires adequate sample size and pre-specified reasoning.
+## Educational interpretation
+
+Early submission can reflect:
+- preparation;
+- time availability;
+- employment constraints;
+- accessibility;
+- course structure;
+- prior achievement;
+- motivation;
+- support.
+
+A positive observational contrast does not show that forcing earlier submission would improve learning.
 
 ## Privacy
 
-Causal analyses can encourage collection of extensive background variables in the name of confounding control.
+OULAD is anonymized public research data. Do not attempt re-identification or link its learner identifiers to external identities.
 
-Collect only information that is defensible for the study question. Protect educational records, demographic information, disability data, behavioral traces, and other sensitive fields.
+Do not collect additional sensitive data merely to improve propensity prediction.
 
-Do not expand surveillance simply to improve a propensity model.
+## Excluded uses
 
-## Positivity and exclusion
+This repository alone must not be used for:
+- grading;
+- admissions;
+- disciplinary action;
+- learner ability labeling;
+- mandatory intervention;
+- teacher or employee sanctions;
+- covert experimentation;
+- automated subgroup targeting;
+- claims that early submission is proven effective.
 
-Trimming or clipping difficult observations can change the population represented by the estimate.
+## Before any real intervention
 
-Any exclusion, trimming, or clipping choice should be reported transparently with counts and rationale.
-
-Do not remove observations merely because they make the result less favorable.
-
-## Uses excluded from this prototype
-
-Do not use this repository alone for:
-
-- high-stakes learner placement or exclusion
-- admissions, grading, discipline, or employment decisions
-- teacher or employee punishment
-- covert experimentation
-- claims that an observational intervention is proven effective
-- automated subgroup targeting without ethical and methodological review
-
-## Before real use
-
-Document the causal question, target population, treatment, outcome timing, estimand, adjustment set, propensity-model provenance, missing-data plan, overlap, weight diagnostics, balance, uncertainty, sensitivity analysis, privacy protections, and who is responsible for reviewing causal claims before they influence practice.
+A real educational intervention would require:
+1. a prospectively specified treatment;
+2. separate causal or experimental validation;
+3. learner and educator oversight;
+4. accessibility and fairness review;
+5. privacy/data-governance review;
+6. monitoring and rollback criteria.
