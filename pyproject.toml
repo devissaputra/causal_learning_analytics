@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "causal-learning-analytics"
-version = "0.1.0"
-description = "Transparent ATE inverse-probability-weighting scaffold with propensity modeling, overlap, balance, weight, uncertainty, and sensitivity diagnostics."
+version = "0.2.0"
+description = "Day-30 OULAD landmark study with inverse-probability weighting, balance diagnostics, refit uncertainty, and causal sensitivity analysis."
 requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [{name = "Devis Wawan Saputra"}]
