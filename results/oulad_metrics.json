@@ -1,0 +1,6 @@
+{
+  "research_bundle": true,
+  "status": "regenerate_required",
+  "message": "Download OULAD from the official source and run scripts/run_oulad_study.py. The former synthetic numbers are not empirical evidence.",
+  "dataset": "Open University Learning Analytics Dataset"
+}
