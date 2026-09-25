@@ -1,17 +1,30 @@
 {
-  "estimand": "ATE",
-  "treatment": "received adaptive feedback intervention",
-  "outcome": "normalized post-test score",
-  "covariates": [
-    "baseline_score",
-    "prior_engagement"
+  "estimand": "ATE-style observational contrast in the supported day-30 landmark population",
+  "landmark_day": 30,
+  "eligibility": "registered by day 30 and not unregistered on or before day 30",
+  "treatment": "at least one non-banked assessment submitted after registration and by day 30",
+  "outcome": "Pass or Distinction versus Fail or withdrawal after the landmark",
+  "numeric_covariates": [
+    "studied_credits",
+    "num_of_prev_attempts",
+    "date_registration"
   ],
-  "propensity_source": "synthetic externally supplied pre-treatment scores",
+  "categorical_covariates": [
+    "age_band",
+    "highest_education",
+    "imd_band",
+    "disability",
+    "gender",
+    "region"
+  ],
+  "propensity_source": "standardized numeric plus one-hot categorical L2 logistic model",
+  "primary_uncertainty": "full-refit percentile bootstrap",
   "assumptions": [
     "consistency",
-    "conditional exchangeability given measured pre-treatment covariates",
-    "positivity",
-    "no interference",
+    "conditional exchangeability given measured pre-landmark covariates",
+    "positivity in the supported landmark population",
+    "no relevant interference",
     "correct treatment and outcome measurement"
-  ]
+  ],
+  "non_claim": "Measured balance does not verify conditional exchangeability."
 }
