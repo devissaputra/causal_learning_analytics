@@ -35,7 +35,7 @@ The favorable outcome is Pass or Distinction. Fail and withdrawal after day 30 f
 
 This design intentionally conditions the target population on continued registration to day 30. It therefore estimates a contrast in the landmark population, not in all original registrations.
 
-## Adjustment set
+## Adjustment set and empirical support
 
 Numeric covariates are studied credits, previous attempts and registration timing.
 
