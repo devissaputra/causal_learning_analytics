@@ -1,433 +1,423 @@
 {
   "estimand": "ATE",
-  "sample_size": 1850,
-  "treated_count": 1654,
+  "sample_size": 1820,
+  "treated_count": 1624,
   "control_count": 196,
-  "raw_mean_difference": 0.3766379586901266,
-  "ipw_ate_ht": 0.3944043328448086,
-  "ipw_ate_hajek": 0.38758701512474636,
+  "raw_mean_difference": 0.3742962702322309,
+  "ipw_ate_ht": 0.39147945579215737,
+  "ipw_ate_hajek": 0.3861104115308514,
   "confidence_level": 0.95,
   "hajek_ate_ci": [
-    0.3222573748153754,
-    0.44718119785010346
+    0.32670279667872243,
+    0.4446095596515698
   ],
   "propensity_original_range": [
-    0.3830244977190483,
-    0.992187546422674
+    0.38405199730925044,
+    0.9915254906261629
   ],
   "propensity_used_range": [
-    0.3830244977190483,
-    0.992187546422674
+    0.38405199730925044,
+    0.9915254906261629
   ],
   "clip": null,
   "clipped_count": 0,
   "common_support": {
     "treated_range": [
-      0.3830244977190483,
-      0.992187546422674
+      0.38405199730925044,
+      0.9915254906261629
     ],
     "control_range": [
-      0.4471656402822612,
-      0.9744484559529221
+      0.4459083659033927,
+      0.9741207901442063
     ],
     "common_support": [
-      0.4471656402822612,
-      0.9744484559529221
+      0.4459083659033927,
+      0.9741207901442063
     ],
-    "treated_fraction_in_support": 0.9552599758162031,
+    "treated_fraction_in_support": 0.9667487684729064,
     "control_fraction_in_support": 1.0,
-    "overall_fraction_in_support": 0.96
+    "overall_fraction_in_support": 0.9703296703296703
   },
   "weight_diagnostics": {
-    "min_weight": 1.0078739685914158,
-    "max_weight": 39.13657813232464,
-    "mean_weight": 1.955259441694165,
-    "overall_ess": 514.3858151278282,
-    "treated_ess": 1633.5881306900137,
-    "control_ess": 133.67024460177507
+    "min_weight": 1.0085469405012324,
+    "max_weight": 38.641056105355716,
+    "mean_weight": 1.9655096358168263,
+    "overall_ess": 509.5228012320698,
+    "treated_ess": 1603.9126653869298,
+    "control_ess": 133.81444816354494
   },
   "balance_before": {
     "studied_credits": {
-      "treated_mean": 73.10459492140266,
+      "treated_mean": 73.33743842364532,
       "control_mean": 66.86224489795919,
-      "smd": 0.16201765788374908
+      "smd": 0.1678572693035085
     },
     "num_of_prev_attempts": {
-      "treated_mean": 0.08162031438935913,
+      "treated_mean": 0.08312807881773399,
       "control_mean": 0.27040816326530615,
-      "smd": -0.510701052261963
+      "smd": -0.5054576021503124
     },
     "date_registration": {
-      "treated_mean": -65.57073760580411,
+      "treated_mean": -65.77524630541872,
       "control_mean": -56.10204081632653,
-      "smd": -0.21391932596371382
+      "smd": -0.2186046436585436
     },
     "age_band=0-35": {
-      "treated_mean": 0.6844014510278114,
+      "treated_mean": 0.6970443349753694,
       "control_mean": 0.75,
-      "smd": -0.14584870062698627
+      "smd": -0.11844723888216709
     },
     "age_band=35-55": {
-      "treated_mean": 0.2974607013301088,
+      "treated_mean": 0.30295566502463056,
       "control_mean": 0.25,
-      "smd": 0.10644974944466969
-    },
-    "age_band=55<=": {
-      "treated_mean": 0.018137847642079808,
-      "control_mean": 0.0,
-      "smd": 0.192154821841896
+      "smd": 0.11844723888216709
     },
     "highest_education=A Level or Equivalent": {
-      "treated_mean": 0.4951632406287787,
+      "treated_mean": 0.5024630541871922,
       "control_mean": 0.4489795918367347,
-      "smd": 0.09247894527743891
+      "smd": 0.10709405811021906
     },
     "highest_education=HE Qualification": {
-      "treated_mean": 0.2309552599758162,
+      "treated_mean": 0.22167487684729065,
       "control_mean": 0.1683673469387755,
-      "smd": 0.15684760034349757
+      "smd": 0.13466924575579475
     },
     "highest_education=Lower Than A Level": {
-      "treated_mean": 0.25211608222490933,
+      "treated_mean": 0.2543103448275862,
       "control_mean": 0.3673469387755102,
-      "smd": -0.2507797560229677
+      "smd": -0.24568864917360975
     },
     "highest_education=No Formal quals": {
-      "treated_mean": 0.005441354292623942,
+      "treated_mean": 0.005541871921182266,
       "control_mean": 0.00510204081632653,
-      "smd": 0.004679171001406506
+      "smd": 0.006036820887477182
     },
     "highest_education=Post Graduate Qualification": {
-      "treated_mean": 0.016324062877871828,
+      "treated_mean": 0.01600985221674877,
       "control_mean": 0.01020408163265306,
-      "smd": 0.0534510906468387
+      "smd": 0.05100341936228271
     },
     "imd_band=0-10%": {
-      "treated_mean": 0.07678355501813784,
+      "treated_mean": 0.07820197044334976,
       "control_mean": 0.10714285714285714,
-      "smd": -0.10503610477390656
+      "smd": -0.09977104823873884
     },
     "imd_band=10-20": {
-      "treated_mean": 0.08827085852478839,
+      "treated_mean": 0.08866995073891626,
       "control_mean": 0.07653061224489796,
-      "smd": 0.04264757174794508
+      "smd": 0.044049445325410365
     },
     "imd_band=20-30%": {
-      "treated_mean": 0.10157194679564692,
+      "treated_mean": 0.10344827586206896,
       "control_mean": 0.08163265306122448,
-      "smd": 0.06907239367230775
+      "smd": 0.07523588216547153
     },
     "imd_band=30-40%": {
-      "treated_mean": 0.10882708585247884,
+      "treated_mean": 0.10960591133004927,
       "control_mean": 0.10204081632653061,
-      "smd": 0.022067518066128902
+      "smd": 0.024560510435380246
     },
     "imd_band=40-50%": {
-      "treated_mean": 0.1003627569528416,
+      "treated_mean": 0.10160098522167488,
       "control_mean": 0.09693877551020408,
-      "smd": 0.011466418009940582
+      "smd": 0.015569918048531141
     },
     "imd_band=50-60%": {
-      "treated_mean": 0.10459492140266022,
+      "treated_mean": 0.10344827586206896,
       "control_mean": 0.10714285714285714,
-      "smd": -0.008269526385929468
+      "smd": -0.012019818271831843
     },
     "imd_band=60-70%": {
-      "treated_mean": 0.1003627569528416,
+      "treated_mean": 0.10036945812807882,
       "control_mean": 0.12244897959183673,
-      "smd": -0.07013249240941904
+      "smd": -0.07011008793127248
     },
     "imd_band=70-80%": {
-      "treated_mean": 0.1033857315598549,
+      "treated_mean": 0.10344827586206896,
       "control_mean": 0.1377551020408163,
-      "smd": -0.10552960566237694
+      "smd": -0.10532498720134062
     },
     "imd_band=80-90%": {
-      "treated_mean": 0.11064087061668681,
+      "treated_mean": 0.1102216748768473,
       "control_mean": 0.12244897959183673,
-      "smd": -0.036751226740955614
+      "smd": -0.038085973159872555
     },
     "imd_band=90-100%": {
-      "treated_mean": 0.10519951632406288,
+      "treated_mean": 0.10098522167487685,
       "control_mean": 0.04591836734693878,
-      "smd": 0.22549648957852478
+      "smd": 0.21204850757676222
     },
     "disability=N": {
-      "treated_mean": 0.9226118500604595,
+      "treated_mean": 0.9211822660098522,
       "control_mean": 0.9183673469387755,
-      "smd": 0.015666979766032124
+      "smd": 0.01034772761604722
     },
     "disability=Y": {
-      "treated_mean": 0.0773881499395405,
+      "treated_mean": 0.07881773399014778,
       "control_mean": 0.08163265306122448,
-      "smd": -0.015666979766032024
+      "smd": -0.010347727616047322
     },
     "gender=F": {
-      "treated_mean": 0.26844014510278114,
+      "treated_mean": 0.27155172413793105,
       "control_mean": 0.14795918367346939,
-      "smd": 0.29970175225672274
+      "smd": 0.3067619865772809
     },
     "gender=M": {
-      "treated_mean": 0.7315598548972189,
+      "treated_mean": 0.728448275862069,
       "control_mean": 0.8520408163265306,
-      "smd": -0.29970175225672274
+      "smd": -0.3067619865772809
     },
     "region=East Anglian Region": {
-      "treated_mean": 0.09613059250302297,
+      "treated_mean": 0.0979064039408867,
       "control_mean": 0.08673469387755102,
-      "smd": 0.03255876148340598
+      "smd": 0.0385468465653723
     },
     "region=East Midlands Region": {
-      "treated_mean": 0.06650544135429262,
+      "treated_mean": 0.06773399014778325,
       "control_mean": 0.07142857142857142,
-      "smd": -0.0194008525362559
+      "smd": -0.014499614402637813
     },
     "region=Ireland": {
-      "treated_mean": 0.02357920193470375,
+      "treated_mean": 0.02401477832512315,
       "control_mean": 0.02040816326530612,
-      "smd": 0.021593351092928287
+      "smd": 0.024442023514473516
     },
     "region=London Region": {
-      "treated_mean": 0.1124546553808948,
+      "treated_mean": 0.1102216748768473,
       "control_mean": 0.10204081632653061,
-      "smd": 0.03361337793505331
+      "smd": 0.026526043676511717
     },
     "region=North Region": {
-      "treated_mean": 0.03143893591293833,
+      "treated_mean": 0.03201970443349754,
       "control_mean": 0.04081632653061224,
-      "smd": -0.05018880408762591
+      "smd": -0.04689792422824411
     },
     "region=North Western Region": {
-      "treated_mean": 0.08222490931076179,
+      "treated_mean": 0.08374384236453201,
       "control_mean": 0.05612244897959184,
-      "smd": 0.10287647511377408
+      "smd": 0.10833065938620932
     },
     "region=Scotland": {
-      "treated_mean": 0.16384522370012092,
+      "treated_mean": 0.16317733990147784,
       "control_mean": 0.22959183673469388,
-      "smd": -0.1657002608952449
+      "smd": -0.16750278135106514
     },
     "region=South East Region": {
-      "treated_mean": 0.07255139056831923,
+      "treated_mean": 0.07204433497536945,
       "control_mean": 0.08163265306122448,
-      "smd": -0.033999867528594414
+      "smd": -0.03595288942065873
     },
     "region=South Region": {
-      "treated_mean": 0.08827085852478839,
+      "treated_mean": 0.0874384236453202,
       "control_mean": 0.05102040816326531,
-      "smd": 0.1465636684290328
+      "smd": 0.1436701841817417
     },
     "region=South West Region": {
-      "treated_mean": 0.08706166868198308,
+      "treated_mean": 0.0874384236453202,
       "control_mean": 0.04591836734693878,
-      "smd": 0.16552636572607013
+      "smd": 0.16683156032327193
     },
     "region=Wales": {
-      "treated_mean": 0.051390568319226115,
+      "treated_mean": 0.05172413793103448,
       "control_mean": 0.07142857142857142,
-      "smd": -0.08340277272104323
+      "smd": -0.08190805862046702
     },
     "region=West Midlands Region": {
-      "treated_mean": 0.06892382103990327,
+      "treated_mean": 0.06834975369458128,
       "control_mean": 0.08673469387755102,
-      "smd": -0.06641638478267677
+      "smd": -0.06867531151634039
     },
     "region=Yorkshire Region": {
-      "treated_mean": 0.05562273276904474,
+      "treated_mean": 0.054187192118226604,
       "control_mean": 0.05612244897959184,
-      "smd": -0.0021726278703665864
+      "smd": -0.008465246194610697
     }
   },
   "balance_after": {
     "studied_credits": {
-      "treated_mean": 72.43001221573097,
-      "control_mean": 74.22711923602262,
-      "smd": -0.04558973809568629
+      "treated_mean": 72.62467870731132,
+      "control_mean": 74.3191554317215,
+      "smd": -0.042903716792560484
     },
     "num_of_prev_attempts": {
-      "treated_mean": 0.10241864429576995,
-      "control_mean": 0.11835184867730263,
-      "smd": -0.05075239830886831
+      "treated_mean": 0.10414080334544734,
+      "control_mean": 0.11880436175020485,
+      "smd": -0.0465062604355701
     },
     "date_registration": {
-      "treated_mean": -64.53795222874473,
-      "control_mean": -64.88068831133083,
-      "smd": 0.0073820668373956976
+      "treated_mean": -64.70292268377737,
+      "control_mean": -65.0207644988707,
+      "smd": 0.00684426100828283
     },
     "age_band=0-35": {
-      "treated_mean": 0.6913858632099302,
-      "control_mean": 0.7146375030451434,
-      "smd": -0.050801567694274546
+      "treated_mean": 0.7029196591453144,
+      "control_mean": 0.7160415207684119,
+      "smd": -0.028847588377450818
     },
     "age_band=35-55": {
-      "treated_mean": 0.2919795586990879,
-      "control_mean": 0.28536249695485705,
-      "smd": 0.014573435289205154
-    },
-    "age_band=55<=": {
-      "treated_mean": 0.01663457809098105,
-      "control_mean": 0.0,
-      "smd": 0.18387829117799023
+      "treated_mean": 0.2970803408546856,
+      "control_mean": 0.28395847923158796,
+      "smd": 0.028847588377451185
     },
     "highest_education=A Level or Equivalent": {
-      "treated_mean": 0.48930362139406675,
-      "control_mean": 0.49295324759606085,
-      "smd": -0.007285619276254113
+      "treated_mean": 0.49577189173391667,
+      "control_mean": 0.49388352750615017,
+      "smd": 0.0037692624935386563
     },
     "highest_education=HE Qualification": {
-      "treated_mean": 0.22421920114366944,
-      "control_mean": 0.2050248840314458,
-      "smd": 0.046671967355189616
+      "treated_mean": 0.21580095364268093,
+      "control_mean": 0.2035912452722882,
+      "smd": 0.029936046649814
     },
     "highest_education=Lower Than A Level": {
-      "treated_mean": 0.26539851249027085,
-      "control_mean": 0.2890729960531798,
-      "smd": -0.05279668635131935
+      "treated_mean": 0.2675409757551193,
+      "control_mean": 0.28977694401543447,
+      "smd": -0.04950864964969334
     },
     "highest_education=No Formal quals": {
-      "treated_mean": 0.00532547646184012,
-      "control_mean": 0.006206475056139957,
-      "smd": -0.011610793502931777
+      "treated_mean": 0.005449896680254398,
+      "control_mean": 0.005849884537897579,
+      "smd": -0.0053253599988519335
     },
     "highest_education=Post Graduate Qualification": {
-      "treated_mean": 0.01575318851015354,
-      "control_mean": 0.006742397263174056,
-      "smd": 0.0854075846696147
+      "treated_mean": 0.015436282188029808,
+      "control_mean": 0.0068983986682295065,
+      "smd": 0.08120299650752978
     },
     "imd_band=0-10%": {
-      "treated_mean": 0.08006086389376249,
-      "control_mean": 0.08648805248821027,
-      "smd": -0.023214829337064542
+      "treated_mean": 0.08143715442162867,
+      "control_mean": 0.08668475643439344,
+      "smd": -0.01887318823418227
     },
     "imd_band=10-20": {
-      "treated_mean": 0.08687117473471685,
-      "control_mean": 0.09531546877624773,
-      "smd": -0.029288213254683622
+      "treated_mean": 0.08726179499583514,
+      "control_mean": 0.09542407016452448,
+      "smd": -0.028275083761821803
     },
     "imd_band=20-30%": {
-      "treated_mean": 0.10024359517325217,
-      "control_mean": 0.11363954006180145,
-      "smd": -0.04326510793854795
+      "treated_mean": 0.1018958003726386,
+      "control_mean": 0.11411298007531308,
+      "smd": -0.039285516982018605
     },
     "imd_band=30-40%": {
-      "treated_mean": 0.10754934728399843,
-      "control_mean": 0.09935604488270017,
-      "smd": 0.02685245066890004
+      "treated_mean": 0.10818674147065466,
+      "control_mean": 0.09952732599468424,
+      "smd": 0.028331516531851647
     },
     "imd_band=40-50%": {
-      "treated_mean": 0.10063119549478698,
-      "control_mean": 0.12450831493913833,
-      "smd": -0.07543301847223723
+      "treated_mean": 0.10174793702925536,
+      "control_mean": 0.12459593052635608,
+      "smd": -0.07200991232031888
     },
     "imd_band=50-60%": {
-      "treated_mean": 0.10514321512832019,
-      "control_mean": 0.10680772461686473,
-      "smd": -0.005396624593569995
+      "treated_mean": 0.1040777858553534,
+      "control_mean": 0.10691854495314693,
+      "smd": -0.009228554689221775
     },
     "imd_band=60-70%": {
-      "treated_mean": 0.10201458980948695,
-      "control_mean": 0.08870523128709233,
-      "smd": 0.04523884322582793
+      "treated_mean": 0.10207016038250524,
+      "control_mean": 0.0888001931550424,
+      "smd": 0.04508889280781594
     },
     "imd_band=70-80%": {
-      "treated_mean": 0.10683296962250123,
-      "control_mean": 0.10305777744364288,
-      "smd": 0.012293334362769448
+      "treated_mean": 0.10691412491137357,
+      "control_mean": 0.10292437700094825,
+      "smd": 0.01299346777473608
     },
     "imd_band=80-90%": {
-      "treated_mean": 0.1113949834686845,
-      "control_mean": 0.09661229162094506,
-      "smd": 0.04834677096643437
+      "treated_mean": 0.11103124070403123,
+      "control_mean": 0.09648993476416427,
+      "smd": 0.047605982230544845
     },
     "imd_band=90-100%": {
-      "treated_mean": 0.09925806539049034,
-      "control_mean": 0.08550955388335753,
-      "smd": 0.047401932563278404
+      "treated_mean": 0.09537725985672485,
+      "control_mean": 0.08452188693142669,
+      "smd": 0.03787458040930952
     },
     "disability=N": {
-      "treated_mean": 0.9214161924322217,
-      "control_mean": 0.9062171210469482,
-      "smd": 0.054062015320349786
+      "treated_mean": 0.9201631148491971,
+      "control_mean": 0.9057230208592174,
+      "smd": 0.05112690390408506
     },
     "disability=Y": {
-      "treated_mean": 0.07858380756777854,
-      "control_mean": 0.09378287895305196,
-      "smd": -0.054062015320349335
+      "treated_mean": 0.07983688515080342,
+      "control_mean": 0.09427697914078266,
+      "smd": -0.05112690390408344
     },
     "gender=F": {
-      "treated_mean": 0.25529412855541883,
-      "control_mean": 0.20910524042324843,
-      "smd": 0.10934581942284062
+      "treated_mean": 0.2579194189342682,
+      "control_mean": 0.20889751580576815,
+      "smd": 0.11586479657809277
     },
     "gender=M": {
-      "treated_mean": 0.7447058714445809,
-      "control_mean": 0.7908947595767518,
-      "smd": -0.10934581942284187
+      "treated_mean": 0.7420805810657327,
+      "control_mean": 0.7911024841942316,
+      "smd": -0.11586479657809001
     },
     "region=East Anglian Region": {
-      "treated_mean": 0.09488087749970582,
-      "control_mean": 0.08549370803896356,
-      "smd": 0.03271118918282284
+      "treated_mean": 0.09642424462721347,
+      "control_mean": 0.0856919194360298,
+      "smd": 0.03723902175567723
     },
     "region=East Midlands Region": {
-      "treated_mean": 0.06661677247794281,
-      "control_mean": 0.056999505575566496,
-      "smd": 0.03986951754592741
+      "treated_mean": 0.06775416727046657,
+      "control_mean": 0.056845774344974745,
+      "smd": 0.045058127625944515
     },
     "region=Ireland": {
-      "treated_mean": 0.023383995622628904,
-      "control_mean": 0.02502174427935588,
-      "smd": -0.010634876021629842
+      "treated_mean": 0.023798298132735107,
+      "control_mean": 0.024786489299368806,
+      "smd": -0.006405454855482673
     },
     "region=London Region": {
-      "treated_mean": 0.11147477856094336,
-      "control_mean": 0.11119569309932703,
-      "smd": 0.0008854615394812734
+      "treated_mean": 0.10944415583970629,
+      "control_mean": 0.11105828678204564,
+      "smd": -0.005143119224001506
     },
     "region=North Region": {
-      "treated_mean": 0.03210511896117008,
-      "control_mean": 0.043412120750503505,
-      "smd": -0.05921035079216453
+      "treated_mean": 0.03255683423592141,
+      "control_mean": 0.04436525026997884,
+      "smd": -0.061292724216355926
     },
     "region=North Western Region": {
-      "treated_mean": 0.0799025489257746,
-      "control_mean": 0.09633079369564786,
-      "smd": -0.057853377823915864
+      "treated_mean": 0.08123577035618842,
+      "control_mean": 0.09648617472509778,
+      "smd": -0.05349931504964091
     },
     "region=Scotland": {
-      "treated_mean": 0.17075508673647685,
-      "control_mean": 0.170789257345475,
-      "smd": -9.062000812777862e-05
+      "treated_mean": 0.17029029945992072,
+      "control_mean": 0.1705487055288726,
+      "smd": -0.0006858512783554209
     },
     "region=South East Region": {
-      "treated_mean": 0.07346662581519112,
-      "control_mean": 0.07991508495349443,
-      "smd": -0.024184133297493048
+      "treated_mean": 0.07297193010206822,
+      "control_mean": 0.08042982843514601,
+      "smd": -0.027968618015017904
     },
     "region=South Region": {
-      "treated_mean": 0.08449169177514625,
-      "control_mean": 0.0884677247468023,
-      "smd": -0.014117115596309142
+      "treated_mean": 0.08370252302656105,
+      "control_mean": 0.08793395278692392,
+      "smd": -0.015076250778936968
     },
     "region=South West Region": {
-      "treated_mean": 0.08293923378773933,
-      "control_mean": 0.07241786266914718,
-      "smd": 0.03923990225440536
+      "treated_mean": 0.0831770583058238,
+      "control_mean": 0.07276617797046729,
+      "smd": 0.038760657332677195
     },
     "region=Wales": {
-      "treated_mean": 0.05377186766763086,
-      "control_mean": 0.051548305612837804,
-      "smd": 0.009935569956866853
+      "treated_mean": 0.05413683646869635,
+      "control_mean": 0.0513860860201081,
+      "smd": 0.012280223966153131
     },
     "region=West Midlands Region": {
-      "treated_mean": 0.0706854054058413,
-      "control_mean": 0.073740041834782,
-      "smd": -0.011777099263875131
+      "treated_mean": 0.07022226430345574,
+      "control_mean": 0.07331144560565689,
+      "smd": -0.0119443476006969
     },
     "region=Yorkshire Region": {
-      "treated_mean": 0.05552599676380884,
-      "control_mean": 0.044668157398097506,
-      "smd": 0.04969652126015398
+      "treated_mean": 0.054285617871243586,
+      "control_mean": 0.04438990879532945,
+      "smd": 0.045618926882892125
     }
   },
   "clipping_sensitivity": [
@@ -435,46 +425,46 @@
       "clip": null,
       "status": "ok",
       "clipped_count": 0,
-      "ipw_ate_ht": 0.3944043328448086,
-      "ipw_ate_hajek": 0.38758701512474636,
-      "max_weight": 39.13657813232464,
-      "overall_ess": 514.3858151278282
+      "ipw_ate_ht": 0.39147945579215737,
+      "ipw_ate_hajek": 0.3861104115308514,
+      "max_weight": 38.641056105355716,
+      "overall_ess": 509.5228012320698
     },
     {
       "clip": 0.01,
       "status": "ok",
-      "clipped_count": 4,
-      "ipw_ate_ht": 0.39440733809811235,
-      "ipw_ate_hajek": 0.38758841979545167,
-      "max_weight": 39.13657813232464,
-      "overall_ess": 514.3871694309689
+      "clipped_count": 2,
+      "ipw_ate_ht": 0.39148107695304424,
+      "ipw_ate_hajek": 0.3861111728085776,
+      "max_weight": 38.641056105355716,
+      "overall_ess": 509.5235209061706
     },
     {
       "clip": 0.025,
       "status": "ok",
-      "clipped_count": 69,
-      "ipw_ate_ht": 0.39459741032504225,
-      "ipw_ate_hajek": 0.3876408447555302,
-      "max_weight": 39.13657813232464,
-      "overall_ess": 514.5034348788103
+      "clipped_count": 50,
+      "ipw_ate_ht": 0.3916104514939186,
+      "ipw_ate_hajek": 0.38614715285674955,
+      "max_weight": 38.641056105355716,
+      "overall_ess": 509.601555476113
     },
     {
       "clip": 0.05,
       "status": "ok",
-      "clipped_count": 405,
-      "ipw_ate_ht": 0.39645062092815564,
-      "ipw_ate_hajek": 0.3822437391933664,
+      "clipped_count": 367,
+      "ipw_ate_ht": 0.3931916003383038,
+      "ipw_ate_hajek": 0.3808310512373767,
       "max_weight": 19.999999999999982,
-      "overall_ess": 574.8794537324019
+      "overall_ess": 568.5158518225884
     },
     {
       "clip": 0.1,
       "status": "ok",
-      "clipped_count": 1138,
-      "ipw_ate_ht": 0.43346288010156864,
-      "ipw_ate_hajek": 0.3794597766547503,
+      "clipped_count": 1101,
+      "ipw_ate_ht": 0.42871628403802475,
+      "ipw_ate_hajek": 0.37713380145879905,
       "max_weight": 10.000000000000002,
-      "overall_ess": 798.8342001956958
+      "overall_ess": 785.6847856810307
     }
   ],
   "analysis_flags": [
@@ -503,8 +493,8 @@
   "cohort": {
     "code_module": "CCC",
     "code_presentation": "2014J",
-    "n": 1850,
-    "treated": 1654,
+    "n": 1820,
+    "treated": 1624,
     "control": 196
   },
   "treatment_definition": "at least one non-banked assessment submitted after registration and on or before presentation day 30",
@@ -540,7 +530,8 @@
     "missing_data": {
       "landmark_cohort_before_complete_case": 1983,
       "excluded_for_any_missing_covariate": 133,
-      "complete_case_n": 1850,
+      "complete_case_before_support_n": 1850,
+      "complete_case_n": 1820,
       "missing_by_covariate": {
         "studied_credits": 0,
         "num_of_prev_attempts": 0,
@@ -551,6 +542,14 @@
         "disability": 0,
         "gender": 0,
         "region": 0
+      },
+      "categorical_support": {
+        "excluded_for_categorical_empirical_support": 30,
+        "unsupported_levels": {
+          "age_band": [
+            "55<="
+          ]
+        }
       }
     }
   },
@@ -561,23 +560,231 @@
     "seed": 20260925,
     "confidence_level": 0.95,
     "interval": [
-      0.3243544581899276,
-      0.44434527725370476
+      0.32422519773711633,
+      0.4446753992859187
     ],
-    "bootstrap_mean": 0.3870200683578743,
-    "bootstrap_sd": 0.030761986215114966
+    "bootstrap_mean": 0.3857783650589891,
+    "bootstrap_sd": 0.03100358244794945,
+    "overlap_weighting_interval": [
+      0.26665393325674935,
+      0.38702555498846475
+    ],
+    "overlap_weighting_bootstrap_mean": 0.3263004684050696,
+    "overlap_weighting_bootstrap_sd": 0.03073491029177083
+  },
+  "overlap_weighting_sensitivity": {
+    "estimand": "ATO-style contrast in the propensity-overlap population",
+    "estimate": 0.32606596517594005,
+    "weight_diagnostics": {
+      "min_weight": 0.008474509373837091,
+      "max_weight": 0.9741207901442063,
+      "mean_weight": 0.17866504844394446,
+      "overall_ess": 649.7075140568078,
+      "treated_ess": 1045.0992955274457,
+      "control_ess": 192.31838491745992
+    },
+    "balance_after": {
+      "studied_credits": {
+        "treated_mean": 68.03399572617917,
+        "control_mean": 68.03550895016139,
+        "smd": -4.039581586677285e-05
+      },
+      "num_of_prev_attempts": {
+        "treated_mean": 0.22233003811153307,
+        "control_mean": 0.2230399835493074,
+        "smd": -0.001703766745661002
+      },
+      "date_registration": {
+        "treated_mean": -57.41961646441842,
+        "control_mean": -57.38161734640588,
+        "smd": -0.0008804067802466952
+      },
+      "age_band=0-35": {
+        "treated_mean": 0.7439843222003489,
+        "control_mean": 0.7454776597616791,
+        "smd": -0.0034197180477521546
+      },
+      "age_band=35-55": {
+        "treated_mean": 0.2560156777996518,
+        "control_mean": 0.25452234023832115,
+        "smd": 0.003419718047753172
+      },
+      "highest_education=A Level or Equivalent": {
+        "treated_mean": 0.45402575744748747,
+        "control_mean": 0.453474669517038,
+        "smd": 0.001105214306975842
+      },
+      "highest_education=HE Qualification": {
+        "treated_mean": 0.1770043340082858,
+        "control_mean": 0.17609243046018627,
+        "smd": 0.002387969550938411
+      },
+      "highest_education=Lower Than A Level": {
+        "treated_mean": 0.35235284683311396,
+        "control_mean": 0.35516374148484,
+        "smd": -0.005869814191061797
+      },
+      "highest_education=No Formal quals": {
+        "treated_mean": 0.005039202372058301,
+        "control_mean": 0.0055518796003011794,
+        "smd": -0.007052641936505438
+      },
+      "highest_education=Post Graduate Qualification": {
+        "treated_mean": 0.011577859339055514,
+        "control_mean": 0.009717278937634789,
+        "smd": 0.018102352891780152
+      },
+      "imd_band=0-10%": {
+        "treated_mean": 0.10145051677771613,
+        "control_mean": 0.10302894134047752,
+        "smd": -0.005201895856336441
+      },
+      "imd_band=10-20": {
+        "treated_mean": 0.0787045942799802,
+        "control_mean": 0.07745992355655049,
+        "smd": 0.0046319758777727685
+      },
+      "imd_band=20-30%": {
+        "treated_mean": 0.09061089215862624,
+        "control_mean": 0.08933227457392942,
+        "smd": 0.004461635664500095
+      },
+      "imd_band=30-40%": {
+        "treated_mean": 0.1007447170351113,
+        "control_mean": 0.10077899397860335,
+        "smd": -0.00011369624635873646
+      },
+      "imd_band=40-50%": {
+        "treated_mean": 0.10125664521382399,
+        "control_mean": 0.10117554725306882,
+        "smd": 0.0002684647150152039
+      },
+      "imd_band=50-60%": {
+        "treated_mean": 0.10897473454583707,
+        "control_mean": 0.10958689719366209,
+        "smd": -0.001959084095672546
+      },
+      "imd_band=60-70%": {
+        "treated_mean": 0.1155225681351879,
+        "control_mean": 0.11667602220527307,
+        "smd": -0.0035951087329590377
+      },
+      "imd_band=70-80%": {
+        "treated_mean": 0.1299386887272022,
+        "control_mean": 0.13166774138663162,
+        "smd": -0.005119980821220536
+      },
+      "imd_band=80-90%": {
+        "treated_mean": 0.11794269989108924,
+        "control_mean": 0.1186035482242693,
+        "smd": -0.0020432446993110054
+      },
+      "imd_band=90-100%": {
+        "treated_mean": 0.054853943235427,
+        "control_mean": 0.05169011028753474,
+        "smd": 0.014067100848703107
+      },
+      "disability=N": {
+        "treated_mean": 0.9170855730465295,
+        "control_mean": 0.9167755759987033,
+        "smd": 0.001121495558078084
+      },
+      "disability=Y": {
+        "treated_mean": 0.08291442695347312,
+        "control_mean": 0.08322442400129716,
+        "smd": -0.0011214955580703021
+      },
+      "gender=F": {
+        "treated_mean": 0.1601559218276421,
+        "control_mean": 0.1575759607531633,
+        "smd": 0.007046937792152707
+      },
+      "gender=M": {
+        "treated_mean": 0.8398440781723596,
+        "control_mean": 0.8424240392468373,
+        "smd": -0.007046937792149599
+      },
+      "region=East Anglian Region": {
+        "treated_mean": 0.08872801024244005,
+        "control_mean": 0.0888408472634797,
+        "smd": -0.0003960973463599835
+      },
+      "region=East Midlands Region": {
+        "treated_mean": 0.06983314847783291,
+        "control_mean": 0.0703505892460565,
+        "smd": -0.002023648094697882
+      },
+      "region=Ireland": {
+        "treated_mean": 0.02279143239169839,
+        "control_mean": 0.02195933938960176,
+        "smd": 0.005617462717358394
+      },
+      "region=London Region": {
+        "treated_mean": 0.10523430632334997,
+        "control_mean": 0.10585309537865434,
+        "smd": -0.0020108305389946487
+      },
+      "region=North Region": {
+        "treated_mean": 0.03643416703953565,
+        "control_mean": 0.03812827195427436,
+        "smd": -0.008928311214532676
+      },
+      "region=North Western Region": {
+        "treated_mean": 0.0640862921508916,
+        "control_mean": 0.06226473777920691,
+        "smd": 0.0074761400663258155
+      },
+      "region=Scotland": {
+        "treated_mean": 0.21674587243849536,
+        "control_mean": 0.21936689118979533,
+        "smd": -0.006337642507471652
+      },
+      "region=South East Region": {
+        "treated_mean": 0.0818019067361926,
+        "control_mean": 0.08335535845165329,
+        "smd": -0.0056351672470441455
+      },
+      "region=South Region": {
+        "treated_mean": 0.057026719535431925,
+        "control_mean": 0.05433626951716653,
+        "smd": 0.011715417277858997
+      },
+      "region=South West Region": {
+        "treated_mean": 0.053266490223414814,
+        "control_mean": 0.05075921844915638,
+        "smd": 0.011274358436388649
+      },
+      "region=Wales": {
+        "treated_mean": 0.06761750445381282,
+        "control_mean": 0.0682822975175503,
+        "smd": -0.0026375473569648293
+      },
+      "region=West Midlands Region": {
+        "treated_mean": 0.08229302938512219,
+        "control_mean": 0.08288355484173572,
+        "smd": -0.0021420299305506306
+      },
+      "region=Yorkshire Region": {
+        "treated_mean": 0.05414112060178314,
+        "control_mean": 0.05361952902166926,
+        "smd": 0.0023066110992004136
+      }
+    },
+    "max_abs_smd_after": 0.018102352891780152,
+    "balance_not_estimable_count": 0,
+    "interpretation": "Overlap weights downweight observations with near-deterministic exposure and target the covariate-overlap population; this is a sensitivity estimand, not the same ATE target."
   },
   "common_support_sensitivity": {
     "common_support": [
-      0.4471656402822612,
-      0.9744484559529221
+      0.4459083659033927,
+      0.9741207901442063
     ],
-    "n": 1776,
-    "excluded": 74,
-    "treated": 1580,
+    "n": 1766,
+    "excluded": 54,
+    "treated": 1570,
     "control": 196,
-    "raw_mean_difference": 0.3702789976750194,
-    "hajek_ate_same_fitted_propensity": 0.3819867814991934,
+    "raw_mean_difference": 0.37049265566099054,
+    "hajek_ate_same_fitted_propensity": 0.38291776323690313,
     "interpretation": "Restricted to empirical common support; propensity scores are not refit after restriction."
   },
   "propensity_specification_sensitivity": [
@@ -586,52 +793,52 @@
       "include_region": true,
       "quadratic_numeric": false,
       "logistic_C": 1.0,
-      "hajek_ate": 0.38758701512474636,
+      "hajek_ate": 0.3861104115308514,
       "propensity_range": [
-        0.3830244977190483,
-        0.992187546422674
+        0.38405199730925044,
+        0.9915254906261629
       ],
-      "max_weight": 39.13657813232464,
-      "overall_ess": 514.3858151278282
+      "max_weight": 38.641056105355716,
+      "overall_ess": 509.5228012320698
     },
     {
       "specification": "no_region",
       "include_region": false,
       "quadratic_numeric": false,
       "logistic_C": 1.0,
-      "hajek_ate": 0.3931794685368436,
+      "hajek_ate": 0.391216037188198,
       "propensity_range": [
-        0.45220609580151244,
-        0.9915821082654406
+        0.4534770215299998,
+        0.9906310900935306
       ],
-      "max_weight": 44.66007123306292,
-      "overall_ess": 531.5187243522022
+      "max_weight": 45.067257649253214,
+      "overall_ess": 525.7957956859732
     },
     {
       "specification": "quadratic_numeric",
       "include_region": true,
       "quadratic_numeric": true,
       "logistic_C": 1.0,
-      "hajek_ate": 0.3818773493014781,
+      "hajek_ate": 0.3800968911559005,
       "propensity_range": [
-        0.321593588169155,
-        0.9949601145863393
+        0.3252611039562025,
+        0.9934715127245402
       ],
-      "max_weight": 26.070263393634622,
-      "overall_ess": 525.322901806541
+      "max_weight": 25.958450274401635,
+      "overall_ess": 522.6890766149611
     },
     {
       "specification": "stronger_l2",
       "include_region": true,
       "quadratic_numeric": false,
       "logistic_C": 0.25,
-      "hajek_ate": 0.38664093806096966,
+      "hajek_ate": 0.3848650070232716,
       "propensity_range": [
-        0.41035630564928816,
-        0.988828501315304
+        0.4107063169700207,
+        0.9883311837116036
       ],
-      "max_weight": 35.80000233234706,
-      "overall_ess": 544.6299785148393
+      "max_weight": 36.05775352471851,
+      "overall_ess": 540.8975198760663
     }
   ],
   "environment": {
