@@ -19,7 +19,7 @@ from sklearn.preprocessing import OneHotEncoder, PolynomialFeatures, StandardSca
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from causal_learning_analytics.core import analyze_ipw, ipw_ate, ipw_weights, raw_mean_difference, weight_diagnostics
+from causal_learning_analytics.core import analyze_ipw, covariate_balance, ipw_ate, ipw_weights, raw_mean_difference, weight_diagnostics
 
 KEY = ["code_module", "code_presentation", "id_student"]
 LANDMARK_DAY = 30
@@ -247,11 +247,46 @@ def balance_covariates(analysis):
     return values
 
 
+def overlap_weights(treatment, propensity):
+    t = np.asarray(treatment, dtype=int)
+    p = np.asarray(propensity, dtype=float)
+    return np.where(t == 1, 1.0 - p, p)
+
+
+def weighted_mean_difference(treatment, outcome, weights):
+    t = np.asarray(treatment, dtype=int)
+    y = np.asarray(outcome, dtype=float)
+    w = np.asarray(weights, dtype=float)
+    treated = np.sum(w[t == 1] * y[t == 1]) / np.sum(w[t == 1])
+    control = np.sum(w[t == 0] * y[t == 0]) / np.sum(w[t == 0])
+    return float(treated - control)
+
+
+def overlap_weighting_analysis(treatment, outcome, propensity, covariates):
+    weights = overlap_weights(treatment, propensity)
+    diagnostics = weight_diagnostics(treatment, weights.tolist())
+    balance = covariate_balance(treatment, covariates, weights=weights.tolist())
+    residual = [
+        abs(item["smd"])
+        for item in balance.values()
+        if item["smd"] is not None
+    ]
+    return {
+        "estimand": "ATO-style contrast in the propensity-overlap population",
+        "estimate": weighted_mean_difference(treatment, outcome, weights),
+        "weight_diagnostics": diagnostics,
+        "balance_after": balance,
+        "max_abs_smd_after": float(max(residual)) if residual else None,
+        "interpretation": "Overlap weights downweight observations with near-deterministic exposure and target the covariate-overlap population; this is a sensitivity estimand, not the same ATE target.",
+    }
+
+
 def full_refit_bootstrap_ci(analysis, iterations, seed=BOOTSTRAP_SEED, confidence=0.95):
     if iterations < 200:
         raise ValueError("full-refit bootstrap requires at least 200 iterations")
     rng = np.random.default_rng(seed)
     estimates = []
+    overlap_estimates = []
     n = len(analysis)
     for _ in range(iterations):
         sample = analysis.iloc[rng.integers(0, n, size=n)].reset_index(drop=True)
@@ -269,10 +304,19 @@ def full_refit_bootstrap_ci(analysis, iterations, seed=BOOTSTRAP_SEED, confidenc
         except ValueError:
             continue
         estimates.append(float(estimate))
+        ow = overlap_weights(treatment, propensity)
+        overlap_estimates.append(
+            weighted_mean_difference(
+                treatment,
+                sample["outcome"].astype(float).to_numpy(),
+                ow,
+            )
+        )
     if len(estimates) < max(100, iterations // 2):
         raise ValueError("too few valid full-refit bootstrap replicates")
     alpha = 1.0 - confidence
     lo, hi = np.quantile(estimates, [alpha / 2, 1 - alpha / 2])
+    ow_lo, ow_hi = np.quantile(overlap_estimates, [alpha / 2, 1 - alpha / 2])
     return {
         "method": "percentile bootstrap with propensity model refit in every resample",
         "iterations_requested": int(iterations),
@@ -282,6 +326,9 @@ def full_refit_bootstrap_ci(analysis, iterations, seed=BOOTSTRAP_SEED, confidenc
         "interval": [float(lo), float(hi)],
         "bootstrap_mean": float(np.mean(estimates)),
         "bootstrap_sd": float(np.std(estimates, ddof=1)),
+        "overlap_weighting_interval": [float(ow_lo), float(ow_hi)],
+        "overlap_weighting_bootstrap_mean": float(np.mean(overlap_estimates)),
+        "overlap_weighting_bootstrap_sd": float(np.std(overlap_estimates, ddof=1)),
     }
 
 
@@ -360,8 +407,14 @@ def write_figures(result, treatment, propensity, weights, outdir: Path):
 
     before, after = result["balance_before"], result["balance_after"]
     names = list(before)
-    before_abs = np.asarray([abs(before[n]["smd"]) for n in names], dtype=float)
-    after_abs = np.asarray([abs(after[n]["smd"]) for n in names], dtype=float)
+    before_abs = np.asarray([
+        np.nan if before[n]["smd"] is None else abs(before[n]["smd"])
+        for n in names
+    ], dtype=float)
+    after_abs = np.asarray([
+        np.nan if after[n]["smd"] is None else abs(after[n]["smd"])
+        for n in names
+    ], dtype=float)
     order = np.argsort(np.maximum(before_abs, after_abs))
     fig, ax = plt.subplots(figsize=(8, max(5, 0.28 * len(names))))
     y = np.arange(len(names))
@@ -434,6 +487,8 @@ def write_summary(result: dict):
         f"- Hajek ATE-style estimate: {_fmt(result.get('ipw_ate_hajek'))}",
         f"- Full-refit bootstrap 95% interval: {_fmt(full_ci)}",
         f"- Fixed-propensity bootstrap 95% interval: {_fmt(result.get('hajek_ate_ci'))}",
+        f"- Overlap-weighted sensitivity contrast: {_fmt(result['overlap_weighting_sensitivity']['estimate'])}",
+        f"- Overlap-weighted full-refit 95% interval: {_fmt(result['full_refit_bootstrap']['overlap_weighting_interval'])}",
         "",
         "## Diagnostics",
         "",
@@ -441,7 +496,9 @@ def write_summary(result: dict):
         f"- Overall effective sample size: {_fmt(wd.get('overall_ess'))}",
         f"- Maximum weight: {_fmt(wd.get('max_weight'))}",
         f"- Common-support restricted Hajek contrast: {_fmt(result['common_support_sensitivity']['hajek_ate_same_fitted_propensity'])}",
-        f"- Analysis flags: {', '.join(result.get('analysis_flags', [])) or 'none'}",
+        f"- Overlap-weighted ESS: {_fmt(result['overlap_weighting_sensitivity']['weight_diagnostics']['overall_ess'])}",
+        f"- Overlap-weighted max |SMD| after weighting: {_fmt(result['overlap_weighting_sensitivity']['max_abs_smd_after'])}",
+        f"- Analysis flags for the ATE analysis: {', '.join(result.get('analysis_flags', [])) or 'none'}",
         "",
         "## Missing-data accounting",
         "",
@@ -503,6 +560,9 @@ def run_study(data_dir: Path, provenance: dict, module=None, presentation=None, 
     result["flow"] = {"landmark_construction": build_meta, "missing_data": missing_meta}
     result["full_refit_bootstrap"] = full_refit_bootstrap_ci(
         analysis, bootstrap_iterations, seed=BOOTSTRAP_SEED
+    )
+    result["overlap_weighting_sensitivity"] = overlap_weighting_analysis(
+        treatment, outcome, propensity, covariates
     )
     result["common_support_sensitivity"] = common_support_sensitivity(treatment, outcome, propensity)
     result["propensity_specification_sensitivity"] = propensity_specification_sensitivity(analysis)
