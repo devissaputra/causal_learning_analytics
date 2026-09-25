@@ -171,7 +171,7 @@ def write_summary(result: dict):
         f"- Raw treated-minus-control difference: {_fmt(result.get('raw_mean_difference'))}",
         f"- Horvitz-Thompson ATE estimate: {_fmt(result.get('ipw_ate_ht'))}",
         f"- Hájek ATE estimate: {_fmt(result.get('ipw_ate_hajek'))}",
-        f"- Bootstrap interval: {_fmt(result.get('bootstrap_ci'))}",
+        f"- Hájek bootstrap 95% interval: {_fmt(result.get('hajek_ate_ci'))}",
         "",
         "## Diagnostics",
         "",
