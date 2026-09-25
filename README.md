@@ -65,13 +65,14 @@ Categorical variables are one-hot encoded rather than forced into arbitrary line
 6. Report complete-case exclusions for every frozen adjustment covariate.
 7. Restrict categorical baseline levels that have no observed exposed or unexposed comparison and record every positivity-support exclusion.
 8. Fit a standardized numeric + one-hot categorical logistic propensity model.
-8. Inspect overlap, IPW weights, effective sample size and covariate balance.
-9. Report raw, Horvitz-Thompson and Hájek contrasts.
-10. Use a **full-refit bootstrap** that refits the propensity model inside every resample as the primary uncertainty interval.
-11. Retain the older fixed-propensity bootstrap as a secondary diagnostic.
-12. Run common-support and propensity-specification sensitivity analyses.
-13. Generate empirical propensity, balance, weight and sensitivity figures.
-14. Preserve causal non-claims and review flags.
+9. Inspect overlap, IPW weights, effective sample size and covariate balance.
+10. Report raw, Horvitz-Thompson and Hájek ATE-style contrasts.
+11. Use a **full-refit bootstrap** that refits the propensity model inside every resample as the primary ATE uncertainty interval.
+12. Retain the fixed-propensity bootstrap as a secondary diagnostic.
+13. Report overlap-weighted ATO sensitivity with its own full-refit interval and balance diagnostics.
+14. Run common-support, clipping and propensity-specification sensitivity analyses.
+15. Generate empirical propensity, balance, weight and sensitivity figures.
+16. Preserve causal non-claims and review flags.
 
 ## Reproduce
 
