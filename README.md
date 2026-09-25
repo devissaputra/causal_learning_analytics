@@ -63,7 +63,8 @@ Categorical variables are one-hot encoded rather than forced into arbitrary line
 4. Apply the day-30 registration/withdrawal landmark.
 5. Select one module-presentation cohort.
 6. Report complete-case exclusions for every frozen adjustment covariate.
-7. Fit a standardized numeric + one-hot categorical logistic propensity model.
+7. Restrict categorical baseline levels that have no observed exposed or unexposed comparison and record every positivity-support exclusion.
+8. Fit a standardized numeric + one-hot categorical logistic propensity model.
 8. Inspect overlap, IPW weights, effective sample size and covariate balance.
 9. Report raw, Horvitz-Thompson and Hájek contrasts.
 10. Use a **full-refit bootstrap** that refits the propensity model inside every resample as the primary uncertainty interval.
