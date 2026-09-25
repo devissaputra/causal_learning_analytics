@@ -17,7 +17,7 @@ permissions:
 
 concurrency:
   group: empirical-study-main
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   run-study:
