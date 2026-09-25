@@ -41,6 +41,8 @@ Numeric covariates are studied credits, previous attempts and registration timin
 
 Categorical covariates are age band, highest education, deprivation band, disability, gender and region. They are one-hot encoded in the propensity model rather than mapped to arbitrary ordinal distances.
 
+Before propensity estimation, categorical baseline levels with no observed exposed/unexposed comparison are removed using an outcome-blind empirical support rule and the exclusions are recorded. This narrows the target population rather than extrapolating across unsupported strata.
+
 The causal rationale and omitted-variable boundary are documented in docs/causal_dag.md.
 
 ## Analysis
