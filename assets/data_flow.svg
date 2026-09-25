@@ -1,37 +1,42 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="430" viewBox="0 0 1200 430" role="img" aria-labelledby="title desc">
-<title id="title">Causal Learning Analytics data and reasoning flow</title>
-<desc id="desc">Treatment, outcome and pre-treatment covariates feed propensity estimation, support and weighting diagnostics, balance, effect estimation, uncertainty and causal review.</desc>
+<title id="title">OULAD landmark data and causal evidence flow</title>
+<desc id="desc">The data flow separates baseline eligibility, exposure classification through day 30, and final outcome follow-up after the landmark.</desc>
 <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#52656D"/></marker></defs>
 <rect width="100%" height="100%" fill="#FAFBFA"/>
-<text x="60" y="64" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#1B2430">Causal Learning Analytics · data and reasoning flow</text>
-<text x="60" y="98" font-family="Arial, sans-serif" font-size="17" fill="#5B6660">The pipeline keeps measured diagnostics separate from assumptions the observed data cannot verify.</text>
+<text x="55" y="58" font-family="Arial" font-size="28" font-weight="700" fill="#1B2430">OULAD causal evidence flow</text>
+<text x="55" y="91" font-family="Arial" font-size="16" fill="#5B6660">Baseline and treatment timing are frozen before final-outcome comparison.</text>
 
-<rect x="60" y="145" width="230" height="110" rx="18" fill="#E8F1F3" stroke="#87949A" stroke-width="2"/>
-<text x="175" y="180" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700" fill="#1B2430">01</text>
-<text x="175" y="207" text-anchor="middle" font-family="Arial" font-size="16" fill="#26343B">Treatment + outcome +</text>
-<text x="175" y="230" text-anchor="middle" font-family="Arial" font-size="16" fill="#26343B">pre-treatment covariates</text>
+<rect x="45" y="144" width="210" height="125" rx="18" fill="#E8F1F3" stroke="#87949A" stroke-width="2"/>
+<text x="150" y="176" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#1B2430">Before / at day 30</text>
+<text x="150" y="201" text-anchor="middle" font-family="Arial" font-size="13" fill="#26343B">baseline covariates</text>
+<text x="150" y="223" text-anchor="middle" font-family="Arial" font-size="13" fill="#26343B">registration status</text>
+<text x="150" y="245" text-anchor="middle" font-family="Arial" font-size="13" fill="#26343B">non-banked submissions</text>
 
-<line x1="295" y1="200" x2="350" y2="200" stroke="#52656D" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="265" y1="206" x2="315" y2="206" stroke="#52656D" stroke-width="3" marker-end="url(#arrow)"/>
 
-<rect x="365" y="145" width="230" height="110" rx="18" fill="#EEF3E8" stroke="#87949A" stroke-width="2"/>
-<text x="480" y="180" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700" fill="#1B2430">02</text>
-<text x="480" y="207" text-anchor="middle" font-family="Arial" font-size="16" fill="#26343B">Propensity + support +</text>
-<text x="480" y="230" text-anchor="middle" font-family="Arial" font-size="16" fill="#26343B">ATE weights</text>
+<rect x="325" y="144" width="210" height="125" rx="18" fill="#EEF3E8" stroke="#87949A" stroke-width="2"/>
+<text x="430" y="176" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#1B2430">Landmark cohort</text>
+<text x="430" y="201" text-anchor="middle" font-family="Arial" font-size="13" fill="#26343B">eligible at day 30</text>
+<text x="430" y="223" text-anchor="middle" font-family="Arial" font-size="13" fill="#26343B">complete-case accounting</text>
+<text x="430" y="245" text-anchor="middle" font-family="Arial" font-size="13" fill="#26343B">one cohort frozen</text>
 
-<line x1="600" y1="200" x2="655" y2="200" stroke="#52656D" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="545" y1="206" x2="595" y2="206" stroke="#52656D" stroke-width="3" marker-end="url(#arrow)"/>
 
-<rect x="670" y="145" width="230" height="110" rx="18" fill="#F5EDE4" stroke="#87949A" stroke-width="2"/>
-<text x="785" y="180" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700" fill="#1B2430">03</text>
-<text x="785" y="207" text-anchor="middle" font-family="Arial" font-size="16" fill="#26343B">Balance + weight ESS +</text>
-<text x="785" y="230" text-anchor="middle" font-family="Arial" font-size="16" fill="#26343B">raw / HT / Hájek</text>
+<rect x="605" y="132" width="230" height="149" rx="18" fill="#F5EDE4" stroke="#87949A" stroke-width="2"/>
+<text x="720" y="166" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#1B2430">Adjustment</text>
+<text x="720" y="191" text-anchor="middle" font-family="Arial" font-size="13" fill="#26343B">propensity estimation</text>
+<text x="720" y="213" text-anchor="middle" font-family="Arial" font-size="13" fill="#26343B">ATE IPW diagnostics</text>
+<text x="720" y="235" text-anchor="middle" font-family="Arial" font-size="13" fill="#26343B">overlap weighting sensitivity</text>
+<text x="720" y="257" text-anchor="middle" font-family="Arial" font-size="13" fill="#26343B">balance + ESS review</text>
 
-<line x1="905" y1="200" x2="945" y2="200" stroke="#52656D" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="845" y1="206" x2="895" y2="206" stroke="#52656D" stroke-width="3" marker-end="url(#arrow)"/>
 
-<rect x="960" y="145" width="190" height="110" rx="18" fill="#ECE8F5" stroke="#87949A" stroke-width="2"/>
-<text x="1055" y="180" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700" fill="#1B2430">04</text>
-<text x="1055" y="202" text-anchor="middle" font-family="Arial" font-size="15" fill="#26343B">Bootstrap + clipping</text>
-<text x="1055" y="223" text-anchor="middle" font-family="Arial" font-size="15" fill="#26343B">+ review flags</text>
+<rect x="905" y="132" width="245" height="149" rx="18" fill="#ECE8F5" stroke="#87949A" stroke-width="2"/>
+<text x="1027" y="166" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#1B2430">After day 30</text>
+<text x="1027" y="191" text-anchor="middle" font-family="Arial" font-size="13" fill="#26343B">final course outcome</text>
+<text x="1027" y="213" text-anchor="middle" font-family="Arial" font-size="13" fill="#26343B">full-refit bootstrap</text>
+<text x="1027" y="235" text-anchor="middle" font-family="Arial" font-size="13" fill="#26343B">support/specification sensitivity</text>
+<text x="1027" y="257" text-anchor="middle" font-family="Arial" font-size="13" fill="#26343B">research non-claims</text>
 
-<text x="60" y="320" font-family="Arial" font-size="15" fill="#5B6660">Measured balance and overlap can reveal problems; they cannot establish that unmeasured confounding is absent.</text>
-<text x="60" y="346" font-family="Arial" font-size="15" fill="#5B6660">All bundled values are synthetic and exist only to exercise the software path.</text>
+<text x="55" y="342" font-family="Arial" font-size="14" fill="#5B6660">No post-day-30 behavior or assessment score enters the baseline propensity model.</text>
 </svg>
