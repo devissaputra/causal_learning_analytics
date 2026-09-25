@@ -1,69 +1,73 @@
-# Related work and methodological context
+# Related Work and Methodological Context
 
-Causal Learning Analytics is an original compact implementation intended to make a small inverse-probability-weighting workflow inspectable.
+This repository is a compact, inspectable causal-learning-analytics research bundle. It is not a replacement for mature causal-inference software.
 
-It is not a replacement for mature causal-inference software.
+## OULAD
 
-## Causal identification and inverse-probability weighting
+Kuzilek, Hlosta, and Zdrahal introduced OULAD as a linked public educational dataset covering demographics, registration, assessment and VLE interactions.
 
-Hernán and Robins' open text *Causal Inference: What If* presents inverse-probability weighting in the potential-outcomes framework and emphasizes the role of identification assumptions such as positivity.
+- Kuzilek, J., Hlosta, M., & Zdrahal, Z. (2017). *Open University Learning Analytics dataset*. Scientific Data, 4, 170171. https://doi.org/10.1038/sdata.2017.171
 
-- Book: https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/
+The source documentation defines date_unregistration as the learner's module unregistration day and is_banked as a transferred assessment result. Those fields are central to the landmark exposure design.
 
-The repository follows the same basic principle: weighting arithmetic is meaningful only in the context of a clearly defined causal question and defensible assumptions.
+## Target-trial timing and landmark logic
 
-## Propensity weighting and balance diagnostics
+Hernán, Sauer, Hernández-Díaz, Platt, and Shrier describe how observational analyses can introduce immortal-time and related design biases when eligibility, treatment assignment and time zero are misaligned.
 
-Austin and Stuart describe best-practice diagnostics for inverse-probability-of-treatment weighting, including inspection of weight distributions and weighted standardized differences for measured baseline covariates.
+- Hernán, M. A., Sauer, B. C., Hernández-Díaz, S., Platt, R., & Shrier, I. (2016). *Specifying a target trial prevents immortal time bias and other self-inflicted injuries in observational analyses*. Journal of Clinical Epidemiology, 79, 70–75. https://doi.org/10.1016/j.jclinepi.2016.04.014
 
-- Austin PC, Stuart EA. *Moving towards best practice when using inverse probability of treatment weighting (IPTW) using the propensity score to estimate causal treatment effects in observational studies.* Statistics in Medicine. 2015.
-- DOI: https://doi.org/10.1002/sim.6607
-- Open article: https://pmc.ncbi.nlm.nih.gov/articles/PMC4626409/
+The day-30 landmark in this repository is motivated by that design principle: treatment classification is completed by the landmark, eligibility is established at the landmark, and later outcome is evaluated afterward.
 
-The current implementation mirrors that emphasis by reporting both weight diagnostics and before/after covariate balance.
+The study is not presented as a full target-trial emulation because treatment strategies are not randomized and the measured adjustment set is incomplete.
 
-## Standardized mean differences
+## Causal identification and IP weighting
 
-The baseline computes continuous-covariate standardized mean differences from treated/control means and pooled group variances.
+Hernán and Robins' *Causal Inference: What If* describes inverse-probability weighting in the potential-outcomes framework and emphasizes exchangeability, positivity and consistency.
 
-When weights are supplied, the group means and sample variances are replaced by their weighted counterparts.
+- Hernán, M. A., & Robins, J. M. *Causal Inference: What If*. Chapman & Hall/CRC. https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/
 
-A commonly used practical review threshold is an absolute standardized difference around 0.10, but this repository treats that value as a review signal rather than proof that confounding has been eliminated.
+## Weighting and balance diagnostics
 
-## Relationship to mature software
+Austin and Stuart emphasize inspection of inverse-probability weights and weighted covariate balance.
 
-Useful comparison targets include:
+- Austin, P. C., & Stuart, E. A. (2015). *Moving towards best practice when using inverse probability of treatment weighting (IPTW) using the propensity score to estimate causal treatment effects in observational studies*. Statistics in Medicine, 34, 3661–3679. https://doi.org/10.1002/sim.6607
 
-- **cobalt** for covariate-balance assessment and visualization: https://ngreifer.github.io/cobalt/
-- **DoWhy** for explicit causal-model workflows: https://www.pywhy.org/dowhy/
-- **EconML** for heterogeneous treatment-effect estimation: https://www.pywhy.org/EconML/
+The bundle reports overlap, weight distributions, effective sample size and standardized mean differences before and after weighting.
 
-The repository deliberately remains smaller. Its role is to expose the mechanics and diagnostics clearly enough that each result can be inspected and tested.
+## Software comparison context
 
-## Scope of the current implementation
+Useful mature tools include:
+- cobalt for balance diagnostics: https://ngreifer.github.io/cobalt/
+- DoWhy for explicit causal graphs/workflows: https://www.pywhy.org/dowhy/
+- EconML for heterogeneous treatment effects: https://www.pywhy.org/EconML/
+
+This repository remains intentionally smaller so every transformation and diagnostic can be inspected.
+
+## Current scope
 
 Implemented:
-
-- simple logistic propensity estimation for continuous pre-treatment covariates
-- externally supplied propensity scores
-- ATE weighting
-- Horvitz-Thompson and Hájek estimates
-- empirical common support
-- weight diagnostics and effective sample size
-- before/after balance
-- fixed-propensity bootstrap uncertainty
-- clipping sensitivity
+- day-30 landmark eligibility;
+- banked-assessment exclusion;
+- one module-presentation at a time;
+- mixed numeric/categorical propensity model;
+- ATE IP weighting;
+- HT and Hájek contrasts;
+- empirical common support;
+- ESS and weight diagnostics;
+- expanded before/after balance;
+- fixed-propensity bootstrap;
+- full-refit bootstrap;
+- clipping sensitivity;
+- common-support sensitivity;
+- alternative propensity specifications.
 
 Not implemented:
+- doubly robust outcome modeling;
+- multiple imputation;
+- time-varying treatment methods;
+- instrumental variables;
+- difference-in-differences;
+- causal forests;
+- formal quantitative sensitivity bounds for unmeasured confounding.
 
-- doubly robust estimators
-- matching
-- overlap weights
-- ATT/ATC
-- generalized treatments
-- time-varying treatment
-- instrumental variables
-- regression discontinuity
-- difference-in-differences
-- causal forests
-- formal sensitivity analysis for unmeasured confounding
+Those are appropriate extensions rather than hidden claims.
