@@ -1,6 +1,7 @@
 # Causal Learning Analytics — Research Bundle
 
 [![CI](https://github.com/devissaputra/causal_learning_analytics/actions/workflows/ci.yml/badge.svg)](https://github.com/devissaputra/causal_learning_analytics/actions/workflows/ci.yml)
+[![Empirical Study](https://github.com/devissaputra/causal_learning_analytics/actions/workflows/empirical.yml/badge.svg)](https://github.com/devissaputra/causal_learning_analytics/actions/workflows/empirical.yml)
 
 **Research Bundle · AI in Education · observational causal inference and diagnostics**
 
@@ -25,7 +26,7 @@ The research adapter uses:
 
 The original release contains 32,593 student registrations across 22 module presentations and is linked to the Scientific Data paper by Kuzilek, Hlosta & Zdrahal (2017), DOI 10.1038/sdata.2017.171.
 
-Because the official OULAD download may require accepting the provider's access flow, raw files are **not** mirrored in this repository. See [docs/dataset_card.md](docs/dataset_card.md).
+The empirical runner retrieves the UCI-hosted OULAD archive (dataset 349), records the archive SHA-256, and extracts only the four required CSV files into a gitignored cache. UCI reports DOI `10.24432/C5KK69` and CC BY 4.0. Raw files are **not** committed. See [DATA.md](DATA.md) and [docs/dataset_card.md](docs/dataset_card.md).
 
 ## Target-trial-style declaration
 
@@ -69,20 +70,16 @@ No assessment score or post-day-30 behavior is included in the propensity model.
 
 ## Run the real study
 
-Download OULAD from the official Open University dataset page, extract the CSV files, then:
+The default command downloads the external UCI archive automatically:
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-python scripts/run_oulad_study.py --data-dir /path/to/oulad
+python scripts/run_oulad_study.py
 ```
 
-Optional cohort:
-
-```bash
-python scripts/run_oulad_study.py --data-dir /path/to/oulad --module BBB --presentation 2013J
-```
+A local OULAD extraction can still be supplied with `--data-dir /path/to/oulad`. To freeze a particular cohort, add `--module BBB --presentation 2013J`.
 
 ## What makes this a Research Bundle
 
