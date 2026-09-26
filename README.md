@@ -1,4 +1,23 @@
-# Causal Learning Analytics — OULAD Day-30 Landmark Research Bundle
+# Causal Learning Analytics — OULAD Day-30 Landmark
+
+This study asks a deliberately narrow observational question: among learners still eligible at day 30, what adjusted contrast in favorable final outcome is associated with submitting at least one non-banked assessment by that landmark? The design separates eligibility, exposure, and later outcome timing so the analysis does not quietly mix early withdrawal with treatment assignment.
+
+The recorded Hájek contrast is 0.3861, with a full-refit bootstrap interval of roughly 0.3242 to 0.4447, but the analysis flags extreme weights, limited effective sample size, and residual imbalance. An overlap-weighted sensitivity analysis yields 0.3261 for a different target population. These are observational contrasts; unmeasured confounding and selection remain barriers to claiming that requiring early submission would improve outcomes.
+
+## Start here
+
+- [Calculations, evidence and verification scope](CALCULATIONS.md)
+- [Figure sources and exact numerical paths](docs/figure_spec.json)
+- [Working paper](paper/paper.md)
+- [Data and provenance](DATA.md)
+
+![Study question, data, design and interpretation](assets/review_overview.svg)
+
+![Defined calculation and source-linked evidence](assets/review_calculations.svg)
+
+**Review scope:** 45 existing unittest checks passed. The complete data/model experiment was not rerun in this review. Stored empirical results were inspected, not independently reproduced from raw data.
+
+## Detailed project documentation
 
 [![CI](https://github.com/devissaputra/causal_learning_analytics/actions/workflows/ci.yml/badge.svg)](https://github.com/devissaputra/causal_learning_analytics/actions/workflows/ci.yml)
 [![Empirical Study](https://github.com/devissaputra/causal_learning_analytics/actions/workflows/empirical.yml/badge.svg)](https://github.com/devissaputra/causal_learning_analytics/actions/workflows/empirical.yml)
@@ -9,7 +28,6 @@ This repository studies a deliberately narrow question in the Open University Le
 
 The design uses a day-30 landmark so treatment classification, eligibility and outcome follow-up are temporally separated. It does not claim that early submission itself causes success.
 
-![Landmark architecture](assets/architecture.svg)
 
 ## Frozen study declaration
 

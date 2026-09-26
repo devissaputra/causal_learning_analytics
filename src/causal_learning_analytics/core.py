@@ -1,3 +1,7 @@
+# Calculation reading guide: ../CALCULATIONS.md (repository root).
+# Weighted contrast = sum(wT·Y)/sum(wT) - sum(wC·Y)/sum(wC).
+# Treated weights are 1/e and control weights 1/(1-e), where e is estimated exposure propensity. Effective sample size is (sum w)^2/sum(w^2). ATE-style weighting does not itself identify a causal effect; overlap weighting changes the target population.
+
 import math
 import random
 from collections.abc import Mapping, Sequence

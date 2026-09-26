@@ -1,0 +1,43 @@
+{
+  "question": "What outcome contrast accompanies early assessment submission?",
+  "data": "OULAD CCC 2014J, day-30 landmark; 1,820 complete supported cases.",
+  "method": "Eligibility precedes exposure assignment; propensity weighting, balance/overlap diagnostics, full-refit bootstrap and overlap-weighted sensitivity.",
+  "formula": "Weighted contrast = sum(wT·Y)/sum(wT) - sum(wC·Y)/sum(wC).",
+  "interpretation": "Treated weights are 1/e and control weights 1/(1-e), where e is estimated exposure propensity. Effective sample size is (sum w)^2/sum(w^2). ATE-style weighting does not itself identify a causal effect; overlap weighting changes the target population.",
+  "status": "RECORDED EXTERNAL-DATA STUDY | full experiment not rerun in this review",
+  "source": "results/oulad_metrics.json",
+  "rows": [
+    {
+      "label": "Analysis cases",
+      "path": [
+        "sample_size"
+      ],
+      "unit": "count"
+    },
+    {
+      "label": "Raw contrast",
+      "path": [
+        "raw_mean_difference"
+      ],
+      "unit": "proportion difference"
+    },
+    {
+      "label": "Hájek weighted contrast",
+      "path": [
+        "ipw_ate_hajek"
+      ],
+      "unit": "proportion difference"
+    },
+    {
+      "label": "Effective sample size",
+      "path": [
+        "weight_diagnostics",
+        "overall_ess"
+      ],
+      "unit": "weighted count"
+    }
+  ],
+  "table_title": "Selected recorded values (units and context shown)",
+  "evidence_note": "Selected committed results; source values were not independently retrained in this review.",
+  "finding": "The recorded Hájek contrast is 0.3861, with a full-refit bootstrap interval of roughly 0.3242 to 0.4447, but the analysis flags extreme weights, limited effective sample size, and residual imbalance. An overlap-weighted sensitivity analysis yields 0.3261 for a different target population. These are observational contrasts; unmeasured confounding and selection remain barriers to claiming that requiring early submission would improve outcomes."
+}
