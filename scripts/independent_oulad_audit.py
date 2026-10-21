@@ -50,7 +50,7 @@ def acquire(folder):
 def raw_tables(folder):
     return {p:pd.read_csv(folder/p) for p in REQUIRED}
 
-def build(tables,day):
+def build(tables,day,module="CCC",presentation="2014J"):
     inf=tables["studentInfo.csv"].copy()
     reg=tables["studentRegistration.csv"].copy()
     assess=tables["assessments.csv"]
@@ -72,7 +72,7 @@ def build(tables,day):
     active=(joined["date_registration"].notna() & (joined["date_registration"]<=day) &
         (((joined["final_result"]!="Withdrawn")&joined["date_unregistration"].isna()) |
             (joined["date_unregistration"]>day)))
-    eligible=joined.loc[active & (joined["code_module"]=="CCC") & (joined["code_presentation"]=="2014J")].copy()
+    eligible=joined.loc[active & (joined["code_module"]==module) & (joined["code_presentation"]==presentation)].copy()
     step={"enrolled_any_module":len(joined),"eligible_any_module":int(active.sum()),
          "focal_before_complete_case":len(eligible)}
     for c in CAT: eligible[c]=eligible[c].replace({"?":np.nan,"":np.nan,"nan":np.nan,"None":np.nan})
