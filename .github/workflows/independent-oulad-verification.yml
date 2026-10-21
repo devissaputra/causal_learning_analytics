@@ -1,0 +1,44 @@
+name: Independent OULAD Data Verification
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "scripts/independent_oulad_audit.py"
+      - ".github/workflows/independent-oulad-verification.yml"
+      - "scripts/independent_oulad_secondary.py"
+      - "scripts/independent_oulad_exclusions.py"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install independent analysis environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install 'numpy==2.3.5' 'pandas==2.2.3' 'scikit-learn==1.8.0'
+      - name: Download official UCI archive and independently recalculate OULAD study
+        run: |
+          python scripts/independent_oulad_audit.py --boots 1000 --out independent_verification.json
+      - name: Independent cross-presentation and propensity diagnostics
+        run: |
+          python scripts/independent_oulad_secondary.py
+      - name: Independent selection and missingness audit
+        run: python scripts/independent_oulad_exclusions.py
+      - name: Preserve verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: independent-oulad-verification
+          path: |
+            independent_verification.json
+            independent_secondary.json
+            independent_exclusions.json
+          if-no-files-found: warn
+          retention-days: 14
