@@ -5,6 +5,7 @@ on:
     paths:
       - "scripts/independent_oulad_audit.py"
       - ".github/workflows/independent-oulad-verification.yml"
+      - "scripts/independent_oulad_secondary.py"
   workflow_dispatch:
 permissions:
   contents: read
@@ -24,11 +25,16 @@ jobs:
       - name: Download official UCI archive and independently recalculate OULAD study
         run: |
           python scripts/independent_oulad_audit.py --boots 1000 --out independent_verification.json
+      - name: Independent cross-presentation and propensity diagnostics
+        run: |
+          python scripts/independent_oulad_secondary.py
       - name: Preserve verification report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: independent-oulad-verification
-          path: independent_verification.json
+          path: |
+            independent_verification.json
+            independent_secondary.json
           if-no-files-found: warn
           retention-days: 14
