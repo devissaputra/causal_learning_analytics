@@ -6,6 +6,7 @@ on:
       - "scripts/independent_oulad_audit.py"
       - ".github/workflows/independent-oulad-verification.yml"
       - "scripts/independent_oulad_secondary.py"
+      - "scripts/independent_oulad_exclusions.py"
   workflow_dispatch:
 permissions:
   contents: read
@@ -28,6 +29,8 @@ jobs:
       - name: Independent cross-presentation and propensity diagnostics
         run: |
           python scripts/independent_oulad_secondary.py
+      - name: Independent selection and missingness audit
+        run: python scripts/independent_oulad_exclusions.py
       - name: Preserve verification report
         if: always()
         uses: actions/upload-artifact@v4
@@ -36,5 +39,6 @@ jobs:
           path: |
             independent_verification.json
             independent_secondary.json
+            independent_exclusions.json
           if-no-files-found: warn
           retention-days: 14
