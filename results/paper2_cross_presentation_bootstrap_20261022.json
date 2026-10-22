@@ -1,0 +1,287 @@
+{
+  "status": "complete_independent_exploratory_cross_presentation_bootstrap",
+  "source_archive_sha256": "f2ed1902616c1fe8d2824d872c0b7d2d72be435bf0124d077044fe4be2c6d3e4",
+  "design": "After-the-fact selected three largest supported presentations; exploratory",
+  "bootstrap_method": "Student-level full-refit nonparametric bootstrap; fixed cohort definitions, propensity model re-estimated in every valid resample",
+  "bootstrap_draws_requested": 1000,
+  "presentation_selection": "The three largest previously identified day-30 populations with >=30 learners in both exposure groups; selected outcome-blind in earlier exploratory audit",
+  "warning": "All quantities are historical observational associations, not intervention effects. Bootstrap intervals do not account for hidden confounders or selection bias.",
+  "presentations": [
+    {
+      "module": "FFF",
+      "presentation": "2013J",
+      "flow": {
+        "enrolled_any_module": 32593,
+        "eligible_any_module": 27350,
+        "focal_before_complete_case": 1972,
+        "after_complete_case": 1876,
+        "unsupported_exclusions": 9,
+        "final_n": 1867
+      },
+      "metrics": {
+        "n": 1867,
+        "exposed": 1689,
+        "control": 178,
+        "raw": 0.49331098116696936,
+        "ipw": 0.5031847904079677,
+        "overlap": 0.4215095432401206,
+        "exposed_outcome_mean": 0.5944345766725874,
+        "control_outcome_mean": 0.10112359550561797,
+        "ipw_max_weight": 36.596229969855244,
+        "ipw_ess": 445.12871335623737,
+        "overlap_ess": 588.356563682543,
+        "propensity_min": 0.13203935489421756,
+        "propensity_max": 0.9780392653336089
+      },
+      "diagnostics": {
+        "ipw": {
+          "early": {
+            "n": 1689,
+            "ess": 1641.8215327041187,
+            "weight_max": 5.215567479607107,
+            "weight_top5_share": 0.009634118711668355
+          },
+          "non_early": {
+            "n": 178,
+            "ess": 113.36099822945042,
+            "weight_max": 36.596229969855244,
+            "weight_top5_share": 0.09278885776134774
+          }
+        },
+        "overlap": {
+          "early": {
+            "n": 1689,
+            "ess": 962.4989263399532,
+            "weight_max": 0.8082663096757918,
+            "weight_top5_share": 0.023792930777426613
+          },
+          "non_early": {
+            "n": 178,
+            "ess": 173.5543895464622,
+            "weight_max": 0.9726747809590301,
+            "weight_top5_share": 0.0327620852815532
+          }
+        },
+        "balance": {
+          "unweighted": {
+            "maximum_absolute_smd": 0.6393738780736689,
+            "n_above_0_1": 13,
+            "undefined": 0,
+            "n_covariate_indicators": 37
+          },
+          "ipw": {
+            "maximum_absolute_smd": 0.11346476485548715,
+            "n_above_0_1": 1,
+            "undefined": 0,
+            "n_covariate_indicators": 37
+          },
+          "overlap": {
+            "maximum_absolute_smd": 0.04564539306629076,
+            "n_above_0_1": 0,
+            "undefined": 0,
+            "n_covariate_indicators": 37
+          }
+        }
+      },
+      "bootstrap": {
+        "resamples_requested": 1000,
+        "resamples_valid": 1000,
+        "ipw_95ci": [
+          0.4478862371761985,
+          0.5475633733917289
+        ],
+        "overlap_95ci": [
+          0.37007583551659007,
+          0.47620211802956547
+        ]
+      },
+      "ipw_interval_contains_zero": false,
+      "overlap_interval_contains_zero": false,
+      "note": "Within-presentation sampling confidence intervals, NOT causal confidence intervals"
+    },
+    {
+      "module": "BBB",
+      "presentation": "2013J",
+      "flow": {
+        "enrolled_any_module": 32593,
+        "eligible_any_module": 27350,
+        "focal_before_complete_case": 1825,
+        "after_complete_case": 1811,
+        "unsupported_exclusions": 7,
+        "final_n": 1804
+      },
+      "metrics": {
+        "n": 1804,
+        "exposed": 1587,
+        "control": 217,
+        "raw": 0.49840727802798657,
+        "ipw": 0.47677477512866784,
+        "overlap": 0.43006089101250944,
+        "exposed_outcome_mean": 0.645872715816005,
+        "control_outcome_mean": 0.14746543778801843,
+        "ipw_max_weight": 24.105832450882254,
+        "ipw_ess": 653.6920671041986,
+        "overlap_ess": 717.2627094068388,
+        "propensity_min": 0.21222279292019847,
+        "propensity_max": 0.9788343603614098
+      },
+      "diagnostics": {
+        "ipw": {
+          "early": {
+            "n": 1587,
+            "ess": 1558.3497295039604,
+            "weight_max": 4.712029213450354,
+            "weight_top5_share": 0.007814597965531179
+          },
+          "non_early": {
+            "n": 217,
+            "ess": 169.7232076556187,
+            "weight_max": 24.105832450882254,
+            "weight_top5_share": 0.06335540855726755
+          }
+        },
+        "overlap": {
+          "early": {
+            "n": 1587,
+            "ess": 1103.7918299369892,
+            "weight_max": 0.7877772070798015,
+            "weight_top5_share": 0.016923827457836094
+          },
+          "non_early": {
+            "n": 217,
+            "ess": 214.03575170503703,
+            "weight_max": 0.9585162635624558,
+            "weight_top5_share": 0.026410797391359202
+          }
+        },
+        "balance": {
+          "unweighted": {
+            "maximum_absolute_smd": 0.413970615896566,
+            "n_above_0_1": 19,
+            "undefined": 0,
+            "n_covariate_indicators": 36
+          },
+          "ipw": {
+            "maximum_absolute_smd": 0.12363254112244941,
+            "n_above_0_1": 1,
+            "undefined": 0,
+            "n_covariate_indicators": 36
+          },
+          "overlap": {
+            "maximum_absolute_smd": 0.03504746911573104,
+            "n_above_0_1": 0,
+            "undefined": 0,
+            "n_covariate_indicators": 36
+          }
+        }
+      },
+      "bootstrap": {
+        "resamples_requested": 1000,
+        "resamples_valid": 1000,
+        "ipw_95ci": [
+          0.4125610643118866,
+          0.5367980201552772
+        ],
+        "overlap_95ci": [
+          0.37052574400514926,
+          0.4859215824419971
+        ]
+      },
+      "ipw_interval_contains_zero": false,
+      "overlap_interval_contains_zero": false,
+      "note": "Within-presentation sampling confidence intervals, NOT causal confidence intervals"
+    },
+    {
+      "module": "BBB",
+      "presentation": "2014J",
+      "flow": {
+        "enrolled_any_module": 32593,
+        "eligible_any_module": 27350,
+        "focal_before_complete_case": 1772,
+        "after_complete_case": 1759,
+        "unsupported_exclusions": 7,
+        "final_n": 1752
+      },
+      "metrics": {
+        "n": 1752,
+        "exposed": 1656,
+        "control": 96,
+        "raw": 0.5769927536231885,
+        "ipw": 0.5610345258582582,
+        "overlap": 0.5415574151757576,
+        "exposed_outcome_mean": 0.6811594202898551,
+        "control_outcome_mean": 0.10416666666666667,
+        "ipw_max_weight": 113.669665836509,
+        "ipw_ess": 217.38809423270206,
+        "overlap_ess": 352.08396175381284,
+        "propensity_min": 0.7232215332584544,
+        "propensity_max": 0.9955858208161009
+      },
+      "diagnostics": {
+        "ipw": {
+          "early": {
+            "n": 1656,
+            "ess": 1652.9823884778427,
+            "weight_max": 1.3827021929152579,
+            "weight_top5_share": 0.003790368911356982
+          },
+          "non_early": {
+            "n": 96,
+            "ess": 53.73642826314464,
+            "weight_max": 113.669665836509,
+            "weight_top5_share": 0.2081325699683631
+          }
+        },
+        "overlap": {
+          "early": {
+            "n": 1656,
+            "ess": 1102.884851265511,
+            "weight_max": 0.2767784667415456,
+            "weight_top5_share": 0.014032880618954963
+          },
+          "non_early": {
+            "n": 96,
+            "ess": 95.73645893566147,
+            "weight_max": 0.9912025781668233,
+            "weight_top5_share": 0.05596547528777777
+          }
+        },
+        "balance": {
+          "unweighted": {
+            "maximum_absolute_smd": 0.3189155177724877,
+            "n_above_0_1": 15,
+            "undefined": 0,
+            "n_covariate_indicators": 36
+          },
+          "ipw": {
+            "maximum_absolute_smd": 0.2161744260084869,
+            "n_above_0_1": 5,
+            "undefined": 0,
+            "n_covariate_indicators": 36
+          },
+          "overlap": {
+            "maximum_absolute_smd": 0.05428470261377366,
+            "n_above_0_1": 0,
+            "undefined": 0,
+            "n_covariate_indicators": 36
+          }
+        }
+      },
+      "bootstrap": {
+        "resamples_requested": 1000,
+        "resamples_valid": 1000,
+        "ipw_95ci": [
+          0.46357143750418967,
+          0.6323727068006836
+        ],
+        "overlap_95ci": [
+          0.46638850948008553,
+          0.6051027378385591
+        ]
+      },
+      "ipw_interval_contains_zero": false,
+      "overlap_interval_contains_zero": false,
+      "note": "Within-presentation sampling confidence intervals, NOT causal confidence intervals"
+    }
+  ]
+}
