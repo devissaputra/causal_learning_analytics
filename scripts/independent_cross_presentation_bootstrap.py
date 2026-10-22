@@ -35,7 +35,7 @@ def main():
             "status":"complete_independent_exploratory_cross_presentation_bootstrap",
             "source_archive_sha256":sha,
             "design":"After-the-fact selected three largest supported presentations; exploratory",
-            "bootstrap_method":"Student-level independent full-refit nonparametric bootstrap; cohort and outcome models rebuilt per resample",
+            "bootstrap_method":"Student-level full-refit nonparametric bootstrap; fixed cohort definitions, propensity model re-estimated in every valid resample",
             "bootstrap_draws_requested":N_BOOT,
             "presentation_selection":"The three largest previously identified day-30 populations with >=30 learners in both exposure groups; selected outcome-blind in earlier exploratory audit",
             "warning":"All quantities are historical observational associations, not intervention effects. Bootstrap intervals do not account for hidden confounders or selection bias.",
