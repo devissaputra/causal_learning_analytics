@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - research/paper2-cross-presentation-final-20261022
+    paths:
+      - scripts/independent_cross_presentation_bootstrap.py
+      - .github/workflows/paper2-cross-presentation.yml
   workflow_dispatch:
 permissions:
   contents: write
