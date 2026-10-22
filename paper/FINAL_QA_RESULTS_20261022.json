@@ -1,0 +1,344 @@
+{
+  "execution_date": "2026-10-22",
+  "scope": "Paper 2 post-revision QA: integrated verified evidence; not independent peer review",
+  "n_checks": 83,
+  "passed": 83,
+  "failed": 0,
+  "checks": [
+    {
+      "check": "Official source checksum matches independent archival evidence",
+      "pass": true
+    },
+    {
+      "check": "Secondary source checksum identical",
+      "pass": true
+    },
+    {
+      "check": "Original UCI archive hash reported in manuscript",
+      "pass": true
+    },
+    {
+      "check": "Original table hash verified: studentInfo.csv",
+      "pass": true
+    },
+    {
+      "check": "Original table hash verified: studentRegistration.csv",
+      "pass": true
+    },
+    {
+      "check": "Original table hash verified: assessments.csv",
+      "pass": true
+    },
+    {
+      "check": "Original table hash verified: studentAssessment.csv",
+      "pass": true
+    },
+    {
+      "check": "focal cases",
+      "pass": true
+    },
+    {
+      "check": "early submitters",
+      "pass": true
+    },
+    {
+      "check": "comparison arm",
+      "pass": true
+    },
+    {
+      "check": "raw contrast",
+      "pass": true
+    },
+    {
+      "check": "IPW contrast",
+      "pass": true
+    },
+    {
+      "check": "OW contrast",
+      "pass": true
+    },
+    {
+      "check": "max weight",
+      "pass": true
+    },
+    {
+      "check": "IPW ESS",
+      "pass": true
+    },
+    {
+      "check": "Primary bootstrap count verified",
+      "pass": true
+    },
+    {
+      "check": "IPW interval matches manuscript",
+      "pass": true
+    },
+    {
+      "check": "OW interval matches manuscript",
+      "pass": true
+    },
+    {
+      "check": "Reported primary numerical token 0.3861",
+      "pass": true
+    },
+    {
+      "check": "Reported primary numerical token 0.3261",
+      "pass": true
+    },
+    {
+      "check": "Reported primary numerical token 0.3743",
+      "pass": true
+    },
+    {
+      "check": "Reported primary numerical token 0.3242",
+      "pass": true
+    },
+    {
+      "check": "Reported primary numerical token 0.4447",
+      "pass": true
+    },
+    {
+      "check": "Reported primary numerical token 0.2667",
+      "pass": true
+    },
+    {
+      "check": "Reported primary numerical token 0.3870",
+      "pass": true
+    },
+    {
+      "check": "Reported primary numerical token 1,820",
+      "pass": true
+    },
+    {
+      "check": "Reported primary numerical token 1,624",
+      "pass": true
+    },
+    {
+      "check": "Reported primary numerical token 196",
+      "pass": true
+    },
+    {
+      "check": "Reported primary numerical token 0.0181",
+      "pass": true
+    },
+    {
+      "check": "Reported primary numerical token 0.1161",
+      "pass": true
+    },
+    {
+      "check": "Reported primary numerical token 38.64",
+      "pass": true
+    },
+    {
+      "check": "Reported primary numerical token 509.52",
+      "pass": true
+    },
+    {
+      "check": "Reported primary numerical token 133.81",
+      "pass": true
+    },
+    {
+      "check": "Flow focal_eligible",
+      "pass": true
+    },
+    {
+      "check": "Flow complete_case",
+      "pass": true
+    },
+    {
+      "check": "Flow final_analysis",
+      "pass": true
+    },
+    {
+      "check": "Absence of submission group 98 + 98",
+      "pass": true
+    },
+    {
+      "check": "Day14 insufficient support",
+      "pass": true
+    },
+    {
+      "check": "Day45 IPW ESS reduction",
+      "pass": true
+    },
+    {
+      "check": "Cross point FFF/2013J",
+      "pass": true
+    },
+    {
+      "check": "Cross arm size FFF/2013J",
+      "pass": true
+    },
+    {
+      "check": "Cross interval token FFF/2013J/0.4479",
+      "pass": true
+    },
+    {
+      "check": "Cross interval token FFF/2013J/0.5476",
+      "pass": true
+    },
+    {
+      "check": "Cross interval token FFF/2013J/0.3701",
+      "pass": true
+    },
+    {
+      "check": "Cross interval token FFF/2013J/0.4762",
+      "pass": true
+    },
+    {
+      "check": "Cross point BBB/2013J",
+      "pass": true
+    },
+    {
+      "check": "Cross arm size BBB/2013J",
+      "pass": true
+    },
+    {
+      "check": "Cross interval token BBB/2013J/0.4126",
+      "pass": true
+    },
+    {
+      "check": "Cross interval token BBB/2013J/0.5368",
+      "pass": true
+    },
+    {
+      "check": "Cross interval token BBB/2013J/0.3705",
+      "pass": true
+    },
+    {
+      "check": "Cross interval token BBB/2013J/0.4859",
+      "pass": true
+    },
+    {
+      "check": "Cross point BBB/2014J",
+      "pass": true
+    },
+    {
+      "check": "Cross arm size BBB/2014J",
+      "pass": true
+    },
+    {
+      "check": "Cross interval token BBB/2014J/0.4636",
+      "pass": true
+    },
+    {
+      "check": "Cross interval token BBB/2014J/0.6324",
+      "pass": true
+    },
+    {
+      "check": "Cross interval token BBB/2014J/0.4664",
+      "pass": true
+    },
+    {
+      "check": "Cross interval token BBB/2014J/0.6051",
+      "pass": true
+    },
+    {
+      "check": "Identification guardrail not identify",
+      "pass": true
+    },
+    {
+      "check": "Identification guardrail unmeasured confounding",
+      "pass": true
+    },
+    {
+      "check": "Identification guardrail day 30",
+      "pass": true
+    },
+    {
+      "check": "Identification guardrail support",
+      "pass": true
+    },
+    {
+      "check": "Identification guardrail different target",
+      "pass": true
+    },
+    {
+      "check": "Identification guardrail full-refit",
+      "pass": true
+    },
+    {
+      "check": "Identification guardrail not a randomized",
+      "pass": true
+    },
+    {
+      "check": "Identification guardrail selection",
+      "pass": true
+    },
+    {
+      "check": "Interpretation topic identification",
+      "pass": true
+    },
+    {
+      "check": "Interpretation topic bootstrap",
+      "pass": true
+    },
+    {
+      "check": "Interpretation topic selection",
+      "pass": true
+    },
+    {
+      "check": "Interpretation topic cross-presentation",
+      "pass": true
+    },
+    {
+      "check": "Interpretation topic bias",
+      "pass": true
+    },
+    {
+      "check": "Every citation resolves",
+      "pass": true
+    },
+    {
+      "check": "No unresolved bibliography keys",
+      "pass": true
+    },
+    {
+      "check": "Expected figures are present",
+      "pass": true
+    },
+    {
+      "check": "No raw student records in manuscript",
+      "pass": true
+    },
+    {
+      "check": "PDF 9 pages",
+      "pass": true
+    },
+    {
+      "check": "PDF searchable",
+      "pass": true
+    },
+    {
+      "check": "Last page contains bibliography",
+      "pass": true
+    },
+    {
+      "check": "No blank pages",
+      "pass": true
+    },
+    {
+      "check": "No result numbers missing in PDF",
+      "pass": true
+    },
+    {
+      "check": "No TeX unresolved references",
+      "pass": true
+    },
+    {
+      "check": "Twice clean-room minimal-source compile",
+      "pass": true
+    },
+    {
+      "check": "Same page count in clean-room",
+      "pass": true
+    },
+    {
+      "check": "Text-identical clean-room PDF",
+      "pass": true
+    }
+  ],
+  "source_reproduction": "https://github.com/devissaputra/causal_learning_analytics/actions/runs/39684326436",
+  "external_interval_reproduction": "https://github.com/devissaputra/causal_learning_analytics/actions/runs/39777348662",
+  "scientific_verdict": "Working preprint candidate after author verification; observational results do not identify intervention effects"
+}
