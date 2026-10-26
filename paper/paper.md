@@ -1,124 +1,43 @@
-# Early Non-Banked Assessment Submission and Later Course Outcome in OULAD: A Day-30 Landmark IPW Study
+# Paper 2 — Day-30 OULAD Landmark Observational Analysis
 
-## Abstract
+**22 October 2026 — current scientific status:** The author-review manuscript is [the nine-page integrated LaTeX source](main_integrated_20261022.tex). The repository's original focal numerical results have been independently reproduced from the source-verified original UCI archive. A new follow-up also calculated 1,000 full-refit student-bootstrap resamples for each of three other presentations. This overview is not a separate competing manuscript.
 
-Learning-analytics studies often associate early engagement with later success, but a causal interpretation can be distorted when the exposure is accumulated over time while outcomes such as withdrawal can occur during the same window. This study uses a day-30 landmark design in the Open University Learning Analytics Dataset (OULAD). Learners must be registered and still under observation at day 30. Exposure is at least one non-banked assessment submitted after registration and by day 30. The analysis compares favorable final course outcomes using inverse-probability weighting over a frozen baseline adjustment set, reports overlap and covariate balance, uses a full-refit bootstrap for uncertainty, and performs common-support and propensity-specification sensitivity analyses. The study remains observational and does not claim that early submission itself causes success.
+## Focal empirical results (CCC / 2014J)
 
-## Research question
+- Day-30 eligible 1,983; after missing covariates 1,850; after category support restriction 1,820 (1,624 earlier submissions; 196 no earlier submission).
+- Raw favorable-outcome rate difference 0.374296.
+- ATE-style normalized Hájek IPW contrast 0.386110, independent full-refit 95% percentile interval [0.324225, 0.444675].
+- ATO-style overlap-weighted contrast 0.326066, interval [0.266654, 0.387026]. **This targets a different weighted population.**
+- IPW ESS 509.52, comparison-arm ESS 133.81, maximum inverse weight 38.64, maximum absolute weighted SMD 0.1161.
+- Missingness and support restrictions exclude 8.22% of initially day-30-eligible cases; the unadjusted outcome rate difference is 0.376763 before exclusions versus 0.374296 in the final sample.
 
-Within one day-30 landmark OULAD module-presentation cohort, what ATE-style adjusted outcome contrast is associated with early non-banked assessment submission?
+## Independent new uncertainty across other presentations
 
-## Background
+The three cohorts were previously selected without examining outcomes, by their observed size and supported exposed/unexposed cell counts. The new uncertainty analyses were conducted **post hoc** and therefore are not confirmatory tests.
 
-OULAD links learner background, registration timing, assessment records and final outcomes across historical Open University module-presentations (Kuzilek et al., 2017).
+| Presentation | Analytic n | No earlier submission | IPW association | 95% full-refit bootstrap interval |
+|---|---:|---:|---:|---|
+| FFF / 2013J | 1,867 | 178 | 0.5032 | [0.4479, 0.5476] |
+| BBB / 2013J | 1,804 | 217 | 0.4768 | [0.4126, 0.5368] |
+| BBB / 2014J | 1,752 | 96 | 0.5610 | [0.4636, 0.6324] |
 
-The temporal design follows the principle that eligibility, exposure assignment and the start of outcome follow-up should be aligned when observational data are used for causal questions (Hernán et al., 2016). This is especially important here because OULAD records withdrawals during the course and assessment exposure is accumulated through day 30.
+[Successful isolated GitHub Actions verification](https://github.com/devissaputra/causal_learning_analytics/actions/runs/39777348662) · [Machine-readable full original results](../results/paper2_cross_presentation_bootstrap_20261022.json) · [Reproducible source](../scripts/independent_cross_presentation_bootstrap.py).
 
-## Data
+## Critical limitations
 
-The runner obtains OULAD through UCI dataset 349 (DOI 10.24432/C5KK69), records the archive SHA-256 and uses studentInfo, studentRegistration, assessments and studentAssessment.
+**This is not a causal intervention study.** Earlier submission can reflect motivation, assessment availability, learner workload and requirements for passing. Survival/registration to day 30 conditions on an outcome of earlier processes; post-landmark submission also has structural dependence with course completion. The non-earlier group includes 98 later submitters (32 favorable) and 98 with no later recorded submission (zero favorable). Covariate weighting does not eliminate hidden confounding, positivity failures or selection bias, and multiple course presentations do not prove universal transportability.
 
-Raw data are not committed.
+A prospective design would need assignment of a feasible intervention **before** the exposure window, such as a defined reminder and submission-support policy, with outcomes analyzed by original assignment. The present dataset does not contain such an assignment.
 
-## Landmark design
+## Source and evidence
 
-The landmark is presentation day 30.
+- [Original data](https://archive.ics.uci.edu/dataset/349/open+university+learning+analytics+dataset), SHA-256 `f2ed1902616c1fe8d2824d872c0b7d2d72be435bf0124d077044fe4be2c6d3e4`.
+- [Primary official source independent reproduction](https://github.com/devissaputra/causal_learning_analytics/actions/runs/39684326436).
+- [Extended propensity and cross-presentation exploratory analysis](https://github.com/devissaputra/causal_learning_analytics/actions/runs/39686498958).
+- [Missingness/selection audit](https://github.com/devissaputra/causal_learning_analytics/actions/runs/39688599327).
+- [New 3,000-resample cross-presentation uncertainty](https://github.com/devissaputra/causal_learning_analytics/actions/runs/39777348662).
+- [Final manuscript](main_integrated_20261022.tex) and [QA proof](FINAL_QA_RESULTS_20261022.json).
 
-Eligible learners:
-1. registered on or before day 30;
-2. did not unregister on or before day 30;
-3. if recorded as Withdrawn, have an observed unregistration date after day 30.
+## Release boundary
 
-Exposure is at least one non-banked assessment submitted after registration and by day 30.
-
-The favorable outcome is Pass or Distinction. Fail and withdrawal after day 30 form the adverse outcome category.
-
-This design intentionally conditions the target population on continued registration to day 30. It therefore estimates a contrast in the landmark population, not in all original registrations.
-
-## Adjustment set and empirical support
-
-Numeric covariates are studied credits, previous attempts and registration timing.
-
-Categorical covariates are age band, highest education, deprivation band, disability, gender and region. They are one-hot encoded in the propensity model rather than mapped to arbitrary ordinal distances.
-
-Before propensity estimation, categorical baseline levels with no observed exposed/unexposed comparison are removed using an outcome-blind empirical support rule and the exclusions are recorded. This narrows the target population rather than extrapolating across unsupported strata.
-
-The causal rationale and omitted-variable boundary are documented in docs/causal_dag.md.
-
-## Analysis
-
-A standardized mixed-feature logistic model estimates propensity scores. The study reports:
-- raw treated-minus-control difference;
-- Horvitz-Thompson ATE-style estimate;
-- normalized Hájek ATE-style estimate;
-- empirical common support;
-- weight distribution and effective sample size;
-- standardized mean differences before and after weighting;
-- fixed-propensity bootstrap uncertainty;
-- full-refit bootstrap uncertainty;
-- common-support restriction sensitivity;
-- alternate propensity-specification sensitivity.
-
-The full-refit bootstrap is the primary uncertainty interval because the propensity model is re-estimated in each bootstrap sample.
-
-## Results
-
-Numerical evidence is generated by scripts/run_oulad_study.py into:
-- results/oulad_metrics.json;
-- results/summary.md;
-- paper/results.md;
-- results/figures/.
-
-This manuscript intentionally does not hard-code a favorable result independent of the generated evidence.
-
-## Limitations
-
-The landmark design corrects a temporal misalignment but does not eliminate confounding. Continued registration to day 30 is part of the target-population definition and may itself depend on measured and unmeasured factors. OULAD incompletely measures motivation, prior achievement, work constraints, access, support and other common causes.
-
-Complete-case analysis can induce selection. Propensity models can be misspecified. One module-presentation does not establish external validity. Good measured balance does not prove exchangeability.
-
-## Ethics and educational interpretation
-
-An observed contrast should not be converted directly into a policy that pressures learners to submit earlier. Early submission may be a marker of preparation, opportunity or constraints rather than an independently manipulable cause.
-
-The study is intended for methodological research, not learner scoring or automated intervention.
-
-## References
-
-Austin, P. C., & Stuart, E. A. (2015). Moving towards best practice when using inverse probability of treatment weighting using the propensity score to estimate causal treatment effects in observational studies. *Statistics in Medicine, 34*, 3661–3679. https://doi.org/10.1002/sim.6607
-
-Hernán, M. A., Sauer, B. C., Hernández-Díaz, S., Platt, R., & Shrier, I. (2016). Specifying a target trial prevents immortal time bias and other self-inflicted injuries in observational analyses. *Journal of Clinical Epidemiology, 79*, 70–75. https://doi.org/10.1016/j.jclinepi.2016.04.014
-
-Hernán, M. A., & Robins, J. M. *Causal Inference: What If*. Chapman & Hall/CRC. https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/
-
-Kuzilek, J., Hlosta, M., & Zdrahal, Z. (2017). Open University Learning Analytics dataset. *Scientific Data, 4*, 170171. https://doi.org/10.1038/sdata.2017.171
-
-
-## Calculation definitions and evidence audit
-
-Weighted contrast = sum(wT·Y)/sum(wT) - sum(wC·Y)/sum(wC).
-
-Treated weights are 1/e and control weights 1/(1-e), where e is estimated exposure propensity. Effective sample size is (sum w)^2/sum(w^2). ATE-style weighting does not itself identify a causal effect; overlap weighting changes the target population.
-
-The recorded Hájek contrast is 0.3861, with a full-refit bootstrap interval of roughly 0.3242 to 0.4447, but the analysis flags extreme weights, limited effective sample size, and residual imbalance. An overlap-weighted sensitivity analysis yields 0.3261 for a different target population. These are observational contrasts; unmeasured confounding and selection remain barriers to claiming that requiring early submission would improve outcomes.
-
-The [calculation guide](../CALCULATIONS.md) provides exact evidence paths and a function-level implementation map.
-
-![Study design](../assets/review_overview.svg)
-
-![Calculation and selected evidence](../assets/review_calculations.svg)
-
-### Selected evidence and interpretation
-
-| Quantity | Value | Unit / meaning | JSON path |
-|---|---:|---|---|
-| Analysis cases | 1820 | count | `sample_size` |
-| Raw contrast | 0.3742962702322309 | proportion difference | `raw_mean_difference` |
-| Hájek weighted contrast | 0.3861104115308514 | proportion difference | `ipw_ate_hajek` |
-| Effective sample size | 509.5228012320698 | weighted count | `weight_diagnostics.overall_ess` |
-
-These values are read from `results/oulad_metrics.json`. They must be interpreted with the split, data status and limitations above. The complete data/model experiment was not rerun in this review. Stored empirical results were inspected, not independently reproduced from raw data.
-
-### Reproduction and claim boundaries
-
-45 existing unittest checks passed. The figure generator can be checked with `python scripts/build_review_figures.py --check`. This verifies the displayed calculation evidence, not an independent replication of the complete scientific experiment. The manuscript is a working report, not a peer-reviewed publication.
+The nine-page LaTeX manuscript compiles cleanly and **83/83 numeric/source/document QA assertions passed** against the archived sources, with a clean-room compilation. The minimal arXiv source ZIP and full research package are stored in the owner's ChatGPT Library folder `/Paper2_Final_20261022`. **Author review, independent human scientific assessment, any arXiv endorsement, and arXiv submission remain pending.** No draft GitHub branch is represented as merged or peer reviewed.
