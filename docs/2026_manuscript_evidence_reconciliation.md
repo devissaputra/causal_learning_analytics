@@ -24,9 +24,14 @@ The supplied PDF is dated 6 November 2026 and contains additional cross-presenta
 
 A previous independent verification run for the primary cohort is recorded in [Actions run 39684326436](https://github.com/devissaputra/causal_learning_analytics/actions/runs/39684326436) and completed successfully. The manuscript cites later supplementary runs; those artifact and commit links require their own version-by-version confirmation. The latest arXiv-ready source package is not established by the default-branch `paper/paper.md`.
 
-## Known manuscript review issue
+## Literature verification completed for the two 2026 Wu citations
 
-The 6 November manuscript's related-work discussion refers to 2026 OULAD prediction studies by "Wu, Jia and Pham" and "Wu, Duan and Luo". Verify that each corresponds to a separate real bibliographic entry and that citations, author lists, year, and claims agree with the final reference list. Do not silently merge these references or invent metadata.
+The 6 November PDF's two OULAD references are **two distinct published studies**, not a duplicated or corrupted author list:
+
+- Wu, S., Duan, J., and Luo, M. (2026). *Calibrated early-warning models with fairness auditing and selective prediction for course withdrawal risk: Evidence from OULAD*. PLOS ONE 21(7), e0352867. DOI: 10.1371/journal.pone.0352867. Published 15 July 2026. The publisher also issued a correction about a supplemental figure on 7 August 2026 (DOI 10.1371/journal.pone.0355736).
+- Wu, M., Jia, J., and Pham, T. T. (2026). *Early warning of academic risk from the first four weeks of online learning activity and assessment performance: a leakage-controlled, demographic-data-minimizing study on the OULAD benchmark*. Frontiers in Education 11, 1917092. DOI: 10.3389/feduc.2026.1917092. Published 8 October 2026.
+
+Both entries appear in the supplied 6 November PDF's bibliography. Publisher metadata and the manuscript's author/title/DOI fields agree at the level checked. This resolves the earlier apparent author inconsistency. It does not constitute exhaustive verification of all citations.
 
 ## Scientific interpretation
 
