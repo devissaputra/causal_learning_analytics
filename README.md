@@ -1,3 +1,5 @@
+> **Manuscript provenance note (7 November 2026):** The 6 November 2026 OULAD PDF is more recent than the manuscript overview under `paper/paper.md`. The paper's **primary full-refit bootstrap interval** [0.3242, 0.4447] is stored at `results/oulad_metrics.json -> full_refit_bootstrap.interval`; the older field `hajek_ate_ci` [0.3267, 0.4446] is the **secondary fixed-propensity interval**, not an erroneous alternative. See [the evidence reconciliation note](docs/2026_manuscript_evidence_reconciliation.md) for the exact values, reproducibility status and outstanding citation checks.
+
 # Causal Learning Analytics — OULAD Day-30 Landmark
 
 This study asks a deliberately narrow observational question: among learners still eligible at day 30, what adjusted contrast in favorable final outcome is associated with submitting at least one non-banked assessment by that landmark? The design separates eligibility, exposure, and later outcome timing so the analysis does not quietly mix early withdrawal with treatment assignment.
