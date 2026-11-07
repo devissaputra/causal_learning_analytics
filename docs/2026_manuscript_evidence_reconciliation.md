@@ -1,3 +1,9 @@
+## Authoritative uploaded PDF fingerprint
+
+- Supplied manuscript edition: **6 November 2026**, 9 pages.
+- PDF SHA-256: `dd942859428140bc2fbe59428a39d5b130b6f887a02800815b969271d7a31281`.
+- This fingerprint identifies the uploaded reviewer-facing PDF, which is **not stored as an exact binary file in this repository**. It does not certify a matching LaTeX source or arXiv ZIP.
+
 # Manuscript and numerical provenance reconciliation (7 November 2026)
 
 This file explains how the 6 November 2026 OULAD PDF relates to the repository's stored numerical outputs. It is an audit note, not peer review or proof of causal identification.
